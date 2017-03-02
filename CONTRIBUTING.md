@@ -5,7 +5,7 @@ Please copy the [ISSUE_TEMPLATE.md](ISSUE_TEMPLATE.md) and file an issue [here o
 If you would like to contribute, please try to adhere to the following guidelines.
 
 1. Fork the repo and branch off of `master`.
-2. Make sure you have [Docker and docker-compose]() installed.
+2. Make sure you have [Docker and docker-compose](https://www.docker.com/products/docker) installed.
 3. If your adding new code, add tests to cover them or at least demonstrate how to test the new feature.
 4. Update documentation if applicable.
 5. Ensure code passes tests and lint commands. `docker-compose exec web npm test` & `docker-compose exec web npm run lint`
