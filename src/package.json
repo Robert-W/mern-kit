@@ -2,7 +2,7 @@
   "name": "mern-kit",
   "version": "1.0.0",
   "description": "Sample boilerplate for a MERN stack running inside a docker container.",
-  "main": "docker-compose.yml",
+  "main": "Dockerfile",
   "scripts": {
     "test": "jest"
   },
