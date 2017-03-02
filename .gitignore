@@ -1,0 +1,10 @@
+# Ignore any system files
+.DS_Store
+.project
+.idea
+
+# Ignore dependencies
+src/node_modules
+
+# Ignore env files
+secrets/*.secrets

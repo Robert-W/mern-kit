@@ -1,0 +1,31 @@
+{
+  "name": "mern-kit",
+  "version": "1.0.0",
+  "description": "Sample boilerplate for a MERN stack running inside a docker container.",
+  "main": "docker-compose.yml",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robert-W/mern-kit.git"
+  },
+  "keywords": [
+    "docker",
+    "mongoose",
+    "mongo",
+    "express",
+    "react",
+    "node",
+    "jest",
+    "mocha",
+    "redux",
+    "webpack"
+  ],
+  "author": "Robert-W <https://github.com/Robert-W>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Robert-W/mern-kit/issues"
+  },
+  "homepage": "https://github.com/Robert-W/mern-kit#readme"
+}
