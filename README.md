@@ -154,7 +154,7 @@ mern-kit will use globs to find all test files in each service directory. This w
 Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.
 
 ## Troubleshooting
-If you have questions specific to Docker, Mongo, Node, React, Webpack, or Redux. Check Stack Overflow or consider posting your question there since Stack Overflow has a lot of support already available for those topics. If you have questions on how any of those are used in this repo, don't hesitate to ask in the issues section. If you think you are experiencing a bug, please copy the [ISSUE_TEMPLATE.md](./ISSUE_TEMPLATE.md) and create an issue.
+If you have questions specific to Docker, Mongo, Node, React, Webpack, or Redux. Consider posting your question on Stack Overflow, they have a lot of support already available for those topics. If you have questions on how any of those are used in this repo, don't hesitate to ask in the issues section. If you think you are experiencing a bug, please copy the [ISSUE_TEMPLATE.md](./ISSUE_TEMPLATE.md) and create an issue.
 
 ## Docker Tips
 Docker can take up some space quickly, and when errors happen, you sometimes get stuck with intermediate containers not being destroyed. Here are a couple of commands to help you see whats going on and clean up your local machine.
