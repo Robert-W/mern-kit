@@ -8,7 +8,7 @@ If you would like to contribute, please try to adhere to the following guideline
 2. Make sure you have [Docker and docker-compose](https://www.docker.com/products/docker) installed.
 3. If your adding new code, add tests to cover them or at least demonstrate how to test the new feature.
 4. Update documentation if applicable.
-5. Ensure code passes tests and lint commands. `docker-compose exec web npm test` & `docker-compose exec web npm run lint`
+5. Ensure code passes tests (`docker-compose exec web npm test`).
 
 ## Coding style
 Before you submit your pull request, please make sure the lint command passes (`docker-compose exec web npm run lint`). You can view the `.eslintrc` to see the enforced rules.
