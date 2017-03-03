@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    depends_on:
+      - mongo
+    build:
+      context: src
+      dockerfile: Dockerfile
+    env_file: secrets/local.secrets
+    environment:
+      NODE_ENV: development
+    ports:
+      # Expose [HOST:CONTAINER]
+      - "3000:3000"
+    volumes:
+      - ./src/app:/srv/src/app
+      - ./src/config:/srv/src/config
+      - ./src/server.js:/srv/src/server.js
+    links:
+      - mongo
+  mongo:
+    image: mongo:3.3
+    ports:
+      - "27017"
+    volumes:
+      - mongo_data:/data/db
+volumes:
+  mongo_data:

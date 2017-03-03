@@ -3,19 +3,17 @@ Mern-Kit
 mern-kit is designed to be a starter kit which provides everything needed in a full stack application using Mongoose (MongoDB), Express, React, and Node, all running inside a docker container.
 
 ## STATUS
-* Documentation - In Progress
 * MVP (Minimum Viable product) - In Progress
 * Mocha Tests - In Progress
 * Jest Tests - Coming soon
 
 ## Getting started
-1. Make sure you have the latest version of [Docker](https://www.docker.com/products/docker) installed. Docker for Mac and Windows comes with the latest docker-compose. For linux, you may need to install it manually and you will need >= version 1.13.0.
+1. Make sure you have the latest version of [Docker](https://www.docker.com/products/docker) installed. Docker for Mac and Windows comes with the latest docker-compose. For linux, you may need to install docker-compose manually.
 2. Copy `secrets/local.secrets.example` to `secrets/local.secrets` and fill in the appropriate fields.
 3. Run the start command, `docker-compose up`.
 4. Open `localhost:3000`.
 
 ## Architecture
-
 The architecture got it's inspiration from a project I worked on that is service oriented. Each folder in src contains all the routes, models, controllers, components, scripts, templates, and configurations necessary for it to integrate with the application. A 'service' folder structure looks like the following:
 
 ```
@@ -101,13 +99,56 @@ docker-compose exec web npm run populate
 ```
 
 ## Tooling
+mern-kit has several tools already setup for your convenience. If you would like to change their default configurations, see the sections below.
+
+### Webpack
+mern-kit is using Webpack 2 for bundling, asset loading, and hot module replacement in development. Configurations are located in the various environment files.  Common config is in the `src/config/env/default.js` environment file, while development and production configs are in the `src/config/env/development.js` and `src/config/env/production.js` file, respectively. You can also configure aliases and entries inside your service folder.  For example, if you add a service called `sample`, you can add a `webpack.config.js` file in the client folder like so:
+```
+//- src/app/sample/client/webpack.config.js
+module.exports = {
+  alias: {
+    sample: 'app/sample/client'
+  },
+  entry: {
+    sample: 'app/sample/client/index.js'
+  }
+};
+```
+
+View the user's service for an example.
 
 ### CSS - SCSS
-### ES6 - Babel
-### Webpack
-### Jest - Enzyme
+mern-kit uses a scss loader so you can import scss files. It also has postcss loader setup with a loader options plugin that adds the autoprefixer. Feel free to add more configurations as necessary to the webpack config in the environment files (`src/config/env`). You can import a scss file like so:
+```
+//- This assumes you configured a 'users' alias
+import 'users/css/app.scss';
 
-## Example Service
+//- You could also use relative paths
+import '../../css/app.scss';
+```
+
+### ES6 - Babel
+mern-kit uses babel with the following presets and plugins, but you can always add more to the `.babelrc` if wanted.
+```
+{
+  "presets": ["react", "es2015", "stage-0"],
+  "plugins": ["transform-runtime"]
+}
+```
+
+It is set to apply this loader to all `.js` files, but if you would like to support `.jsx` files as well, just update the loader configuration for the webpack settings in `src/config/env/default.js`.
+
+### Jest(with Enzyme) and Mocha
+mern-kit will use globs to find all test files in each service directory. This way you can write tests for your specific service and let mern-kit worry about finding them and running them. For example, if you have a service called `sample`, you could add tests like so:
+```
+|- sample
+  |- tests
+    |- jest // For component testing
+      |- sample.component.test.js
+    |- mocha
+      |- sample.model.test.js
+      |- sample.controller.test.js
+```
 
 ## Contributing
 Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.

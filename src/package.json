@@ -4,7 +4,11 @@
   "description": "Sample boilerplate for a MERN stack running inside a docker container.",
   "main": "Dockerfile",
   "scripts": {
-    "test": "jest"
+    "start": "node config/scripts/start",
+    "populate": "node config/scripts/populate",
+    "drop": "node config/scripts/drop",
+    "test": "npm run lint; node config/scripts/test; jest",
+    "lint": "eslint src/**/*.js;"
   },
   "repository": {
     "type": "git",
