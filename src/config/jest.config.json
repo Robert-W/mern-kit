@@ -1,5 +1,7 @@
 {
   "verbose": true,
   "collectCoverage": true,
-  "coverageReporters": ["text"]
+  "coverageReporters": [
+    "text"
+  ]
 }

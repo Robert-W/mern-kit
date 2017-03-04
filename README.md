@@ -2,10 +2,10 @@ Mern-Kit
 ========
 mern-kit is designed to be a starter kit which provides everything needed in a full stack application using Mongoose (MongoDB), Express, React, and Node, all running inside a docker container.
 
-## STATUS
-* MVP (Minimum Viable product) - In Progress
-* Mocha Tests - In Progress
-* Jest Tests - Coming soon
+## Things to test
+- All drop scripts
+- All populate scripts
+- Webpack configs
 
 ## Getting started
 1. Make sure you have the latest version of [Docker](https://www.docker.com/products/docker) installed. Docker for Mac and Windows comes with the latest docker-compose. For linux, you may need to install docker-compose manually.

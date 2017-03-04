@@ -13,8 +13,8 @@ const entries = configs.reduce((all, webpackConfig) => Object.assign(all, webpac
 const aliases = configs.reduce((all, webpackConfig) => Object.assign(all, webpackConfig.alias), {});
 
 // Resolve their paths
-for (const key of entries) { entries[key] = path.resolve(entries[key]); }
-for (const key of aliases) { aliases[key] = path.resolve(aliases[key]); }
+for (const key in entries) { entries[key] = path.resolve(entries[key]); }
+for (const key in aliases) { aliases[key] = path.resolve(aliases[key]); }
 
 module.exports = Object.assign({}, config.webpack, {
   entry: entries,

@@ -13,8 +13,6 @@ const getFilePaths = config => ({
     models: glob.sync(config.models),
     // Get mocha tests
     mocha: glob.sync(config.mocha),
-    // Get jest tests
-    jest: glob.sync(config.jest),
     // Get views
     views: glob.sync(config.views)
   }
