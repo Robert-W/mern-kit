@@ -17,6 +17,19 @@ for (const key in entries) { entries[key] = path.resolve(entries[key]); }
 for (const key in aliases) { aliases[key] = path.resolve(aliases[key]); }
 
 module.exports = Object.assign({}, config.webpack, {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+      },
+      {
+        test: /\.js?$/,
+        loaders: 'babel-loader',
+        exclude: /(node_modules|build)/
+      }
+    ]
+  },
   entry: entries,
   resolve: {
     alias: aliases

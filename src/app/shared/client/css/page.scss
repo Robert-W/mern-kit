@@ -1,0 +1,18 @@
+// Import base css
+@import './_base';
+
+.app {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.app__body {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  top: 60px;
+  left: 0;
+}

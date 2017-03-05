@@ -33,28 +33,11 @@ module.exports = {
   },
 
   auth: {
-    trustProxy: true,
     strategy: 'local',
     collection: 'sessions',
     secret: 'asDas34DR42liji!$asdfa@asdf',
     cookie: {
       maxAge: 1000 * 60 * 60 * 24
-    }
-  },
-
-  webpack: {
-    module: {
-      rules: [
-        {
-          test: /\.scss$/,
-          loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-        },
-        {
-          test: /\.js?$/,
-          loaders: 'babel-loader',
-          exclude: /(node_modules|build)/
-        }
-      ]
     }
   }
 

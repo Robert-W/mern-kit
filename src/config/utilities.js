@@ -18,8 +18,8 @@ function ensureAuthenticated (req, res, next) {
 /**
 * @function isValidPassword
 * @summary validate the provided password meets all the requirements
-* @param {string} value
-* @return boolean
+* @param {String} value
+* @return {Boolean}
 */
 function isValidPassword (password) {
   return (
@@ -32,8 +32,8 @@ function isValidPassword (password) {
 /**
 * @function isNotEmpty
 * @summary validate the provided value is not empty
-* @param {string} value
-* @return boolean
+* @param {String} value
+* @return {Boolean}
 */
 function isNotEmpty (value) {
   return value !== null && value.length && value.length > 0;
@@ -42,9 +42,9 @@ function isNotEmpty (value) {
 /**
 * @function isUnique
 * @summary validate the provided value is not in the provided model
-* @param {string} model - model to validate value against
-* @param {string} field - field to test against
-* @return function - a validator function that will pass a boolean through the callback
+* @param {String} model - model to validate value against
+* @param {String} field - field to test against
+* @return {Function} - a validator function that will pass a boolean through the callback
 */
 function isUnique (model, field) {
   return (value, callback) => {

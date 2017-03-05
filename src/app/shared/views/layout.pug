@@ -1,0 +1,17 @@
+doctype
+html
+  head
+    //- Basic Meta Tags
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1')
+    meta(http-equiv='X-UA-Compatible', content='IE=Edge')
+    //- Semantics
+    meta(name='author', content=author)
+    meta(name='keywords', content=keywords)
+    meta(name='description', content=description)
+    //- Title
+    title #{title}
+    //- Option to append content to head
+    block head
+  body
+    block content
