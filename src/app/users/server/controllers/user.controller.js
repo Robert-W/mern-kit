@@ -8,7 +8,8 @@ const logger = require(path.resolve('./config/lib/winston'));
 * @function login
 * @summary login the user to the request
 * @param {User} user
-* @param {Response} res - Express response object
+* @param {Express.Request} req - Express request object
+* @param {Express.Response} res - Express response object
 */
 const login = function login (user, req, res) {
   req.login(user, err => {
@@ -24,8 +25,8 @@ const login = function login (user, req, res) {
 * @function authenticateAndLogin
 * @summary Authenticate the user and then log them in
 * @param {String} strategy - Strategy to use
-* @param {Request} req - Express request object
-* @param {Response} res - Express response object
+* @param {Express.Request} req - Express request object
+* @param {Express.Response} res - Express response object
 * @param {Function} next - Next middleware
 */
 const authenticateAndLogin = function authenticateAndLogin (strategy, req, res, next) {
@@ -45,8 +46,8 @@ const authenticateAndLogin = function authenticateAndLogin (strategy, req, res, 
 * @summary sign the user out
 * @name exports.signout
 * @static
-* @param {User} user
-* @param {Response} res - Express response object
+* @param {Express.Request} req - Express request object
+* @param {Express.Response} res - Express response object
 */
 exports.signout = (req, res) => {
   req.logout();
@@ -58,8 +59,9 @@ exports.signout = (req, res) => {
 * @summary sign the user to the in
 * @name exports.signin
 * @static
-* @param {User} user
-* @param {Response} res - Express response object
+* @param {Express.Request} req - Express request object
+* @param {Express.Response} res - Express response object
+* @param {Function} next - next middleware
 */
 exports.signin = (req, res, next) => {
   authenticateAndLogin('local', req, res, next);
@@ -70,8 +72,8 @@ exports.signin = (req, res, next) => {
 * @summary create a new user and then log them in
 * @name exports.signup
 * @static
-* @param {User} user
-* @param {Response} res - Express response object
+* @param {Express.Request} req - Express request object
+* @param {Express.Response} res - Express response object
 */
 exports.signup = (req, res) => {
   const user = new User(User.makeCopy(res.body));
@@ -90,8 +92,8 @@ exports.signup = (req, res) => {
 * @summary send the user a link to reset their password
 * @name exports.forgot
 * @static
-* @param {User} user
-* @param {Response} res - Express response object
+* @param {Express.Request} req - Express request object
+* @param {Express.Response} res - Express response object
 */
 exports.forgot = (req, res) => {
   res.end('Feature coming soon');
