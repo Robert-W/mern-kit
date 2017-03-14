@@ -5,9 +5,9 @@
 */
 module.exports = {
   alias: {
-    home: 'app/home/client'
+    home: 'client/home'
   },
   entry: {
-    home: 'app/home/client/index.js'
+    home: 'client/home/index.js'
   }
 };

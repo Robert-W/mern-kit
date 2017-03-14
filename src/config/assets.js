@@ -4,11 +4,11 @@
 * @summary location of all assets
 */
 module.exports = {
-  webpack: 'app/*/client/webpack.config.js',
-  scripts: 'app/*/script/**/*.js',
-  routes: 'app/*/server/routes/**/*.js',
-  models: 'app/*/server/models/**/*.js',
-  mocha: 'app/*/tests/mocha/**/*.js',
-  jest: 'app/*/tests/jest/**/*.js',
-  views: 'app/*/views'
+  webpack: 'client/*/webpack.config.js',
+  scripts: 'server/*/scripts/**/*.js',
+  routes: 'server/*/routes/**/*.js',
+  models: 'server/*/models/**/*.js',
+  mocha: 'server/*/tests/**/*.js',
+  jest: 'client/*/tests/**/*.js',
+  views: 'server/*/views'
 };

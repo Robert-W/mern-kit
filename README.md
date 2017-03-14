@@ -9,27 +9,34 @@ mern-kit is designed to be a starter kit which provides everything needed in a f
 4. Open `localhost:3000`.
 
 ## Architecture
-The architecture got it's inspiration from a project I worked on that is service oriented. Each folder in src contains all the routes, models, controllers, components, scripts, templates, and configurations necessary for it to integrate with the application. A 'service' folder structure looks like the following:
+The architecture should be fairly straight-forward. There are three main folders, `client`, `server`, and `config`. `config` contains all the main configurations, scripts, environment settings, strategies, and some utilities. `client` contains components, css, tests, webpack.config.js, and a root index.js entry file. `server` contains any server related code and test, such as models, routes, controllers, views, scripts, tests, schemas (for graphql), and anything else needed.  Below is an example of what the base architecture with a `sample` service looks like.
 
 ```
-sample
-  |- README.md
-  |- client
+config
+  |- env
+  |- lib
+  |- scripts
+  |- strategies
+  |- assets.js
+  |- config.js
+  |- utilities.js
+  |- jest.config.js
+  |- webpack.config.js
+client
+  |- sample
     |- components
     |- css
-    |- sample.js
+    |- index.js
     |- webpack.config.js
-  |- server
+server
+  |- sample
     |- controllers
-    |- routes
     |- models
-  |- script
-    |- sample.database.js
-  |- tests
-    |- mocha
-    |- jest
-  |- views
-    |- index.pug
+    |- routes
+    |- scripts
+    |- tests
+    |- views
+      |- index.pug
 ```
 
 ## Commands
@@ -82,13 +89,13 @@ docker-compose exec mongo mongo
 ```
 
 ### Drop collections
-This command can be used to drop your mongoose collections. It will iterate over all the scripts in the `<service>/script/` directories. If the scripts have a `dropCollection` export it will be invoked. You can see an example in the [src/app/users/script/users.database.js](./src/app/users/script/users.database.js) file.
+This command can be used to drop your mongoose collections. It will iterate over all the scripts in the `server/<service>/scripts/` directories. If the scripts have a `dropCollection` export it will be invoked. You can see an example in the [src/server/users/scripts/users.database.js](./src/app/users/script/users.database.js) file.
 ```
 docker-compose exec web npm run drop
 ```
 
 ### Populate collections
-This command can be used to populate your mongoose collections. It will iterate over all the scripts in the `<service>/script/` directories. If the scripts have a `populateCollection` export it will be invoked. You can see an example in the [src/app/users/script/users.database.js](./src/app/users/script/users.database.js) file.
+This command can be used to populate your mongoose collections. It will iterate over all the scripts in the `server/<service>/scripts/` directories. If the scripts have a `populateCollection` export it will be invoked. You can see an example in the [src/app/users/script/users.database.js](./src/app/users/script/users.database.js) file.
 ```
 docker-compose exec web npm run populate
 ```
@@ -99,13 +106,13 @@ mern-kit has several tools already setup for your convenience. If you would like
 ### Webpack
 mern-kit is using Webpack 2 for bundling, asset loading, and hot module replacement in development. Configurations are located in the various environment files.  Common config is in the `src/config/env/default.js` environment file, while development and production configs are in the `src/config/env/development.js` and `src/config/env/production.js` file, respectively. You can also configure aliases and entries inside your service folder.  For example, if you add a service called `sample`, you can add a `webpack.config.js` file in the client folder like so:
 ```
-//- src/app/sample/client/webpack.config.js
+//- src/client/sample/webpack.config.js
 module.exports = {
   alias: {
-    sample: 'app/sample/client'
+    sample: 'client/sample'
   },
   entry: {
-    sample: 'app/sample/client/index.js'
+    sample: 'client/sample/index.js'
   }
 };
 ```
@@ -119,7 +126,7 @@ mern-kit uses a scss loader so you can import scss files. It also has postcss lo
 import 'users/css/app.scss';
 
 //- You could also use relative paths
-import '../../css/app.scss';
+import '../css/app.scss';
 ```
 
 ### ES6 - Babel
@@ -136,11 +143,13 @@ It is set to apply this loader to all `.js` files, but if you would like to supp
 ### Jest(with Enzyme) and Mocha
 mern-kit will use globs to find all test files in each service directory. This way you can write tests for your specific service and let mern-kit worry about finding them and running them. For example, if you have a service called `sample`, you could add tests like so:
 ```
-|- sample
-  |- tests
-    |- jest // For component testing
+|- client
+  |- sample
+    |- tests // For component testing
       |- sample.component.test.js
-    |- mocha
+|- server
+  |- sample
+    |- tests
       |- sample.model.test.js
       |- sample.controller.test.js
 ```

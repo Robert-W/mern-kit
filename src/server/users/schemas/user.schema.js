@@ -25,9 +25,9 @@ const UserQueryType = new graphql.GraphQLObjectType({
         _id: { type: graphql.GraphQLString }
       },
       resolve: (root, args) => {
-        return args._id ?
-          [people.find(user => user._id === args._id)] :
-          people;
+        return args._id
+          ? [people.find(user => user._id === args._id)]
+          : people;
       }
     }
   }

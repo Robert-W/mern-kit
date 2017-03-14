@@ -5,9 +5,9 @@
 */
 module.exports = {
   alias: {
-    users: 'app/users/client'
+    users: 'client/users'
   },
   entry: {
-    login: 'app/users/client/index.js'
+    login: 'client/users/index.js'
   }
 };

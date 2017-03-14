@@ -5,6 +5,6 @@
 */
 module.exports = {
   alias: {
-    shared: 'app/shared/client'
+    shared: 'client/shared'
   }
 };

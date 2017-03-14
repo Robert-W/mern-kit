@@ -25,7 +25,7 @@ const configureMiddleware = app => {
   // Use before static routes applied
   app.use(compression({ level: 9 }));
   // Setup favicon
-  app.use(favicon('./app/shared/favicon.ico'));
+  app.use(favicon('./server/core/favicon.ico'));
   // Setup body parser
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());

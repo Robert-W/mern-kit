@@ -8,8 +8,7 @@ nodemon({
   ext: 'js json pug',
   verbose: true,
   watch: [
-    'app/*/server/**/*.js',
-    'app/*/views/**/*.pug',
+    'server/**/*.js',
     'config/**/*.js',
     '!config/scripts',
     'server.js'

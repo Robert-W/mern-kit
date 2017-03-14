@@ -20,7 +20,7 @@ try {
     '\\.(jpe?g|png|gif|svg)$': '<rootDir>/config/__mocks__/object.js'
   });
   // Set the test paths
-  jestConfig.testRegex = assets.jest;
+  jestConfig.testMatch = [assets.jest];
   // Write the file back out to jestConfig
   fs.writeFileSync(jestConfigPath, JSON.stringify(jestConfig, null, 2), 'utf-8');
 } catch (err) {
