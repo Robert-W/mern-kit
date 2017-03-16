@@ -6,6 +6,7 @@ jobs:
     environment:
       NODE_ENV: 'test'
     steps:
+      - checkout
       - setup_docker_engine
       # Generate necessary secrets files
       - run:
