@@ -1,0 +1,13 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - pip install --upgrade docker-compose==1.11.2
+
+test:
+  pre:
+    - docker-compose build
+  override:
+    - docker-compose run web npm test
