@@ -3,14 +3,15 @@ jobs:
   environment:
     NODE_ENV: 'test'
   build:
-    - setup_docker_engine
-    # Generate necessary secrets files
-    - run:
-        name: Add blank local secrets files
-        command: |
-          touch ./secrets/local.secrets
-    # Run our test command
-    - run:
-        name: Run uor Test command
-        command: |
-          docker-compose run web npm test
+    steps:
+      - setup_docker_engine
+      # Generate necessary secrets files
+      - run:
+          name: Add blank local secrets files
+          command: |
+            touch ./secrets/local.secrets
+      # Run our test command
+      - run:
+          name: Run uor Test command
+          command: |
+            docker-compose run web npm test
