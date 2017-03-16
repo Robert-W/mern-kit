@@ -1,8 +1,8 @@
 version: 2
 jobs:
-  environment:
-    NODE_ENV: 'test'
   build:
+    environment:
+      NODE_ENV: 'test'
     steps:
       - setup_docker_engine
       # Generate necessary secrets files
