@@ -1,6 +1,8 @@
 version: 2
 jobs:
   build:
+    executorType: machine
+    working_directory: ~/src
     environment:
       NODE_ENV: 'test'
     steps:
