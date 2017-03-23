@@ -26,6 +26,8 @@ const loadModels = () => new Promise((resolve, reject) => {
 */
 module.exports.connect = () => new Promise((resolve, reject) => {
   logger.info('Connecting to MongoDB');
+  // Set the promise library
+  mongoose.Promise = Promise;
   // Attempt our connection
   mongoose.connect(config.mongo.db, error => {
     if (error) {
