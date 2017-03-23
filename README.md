@@ -7,6 +7,7 @@ mern-kit is designed to be a starter kit which provides everything needed in a f
 2. Copy `secrets/local.secrets.example` to `secrets/local.secrets` and fill in the appropriate fields.
 3. Run the start command, `docker-compose up`.
 4. Open `localhost:3000`.
+5. (Optional) You can run `docker-compose exec web npm run populate` to populate your mongoose collections with some defaults. Keep in mind, any users populated this way must meet the applications minimum password requirements which are defined in the default environment file, [`src/config/env/default.js`](./src/config/env/default.js).
 
 ## Architecture
 The architecture should be fairly straight-forward. There are three main folders, `client`, `server`, and `config`. `config` contains all the main configurations, scripts, environment settings, strategies, and some utilities. `client` contains components, css, tests, webpack.config.js, and a root index.js entry file. `server` contains any server related code and test, such as models, routes, controllers, views, scripts, tests, schemas (for graphql), and anything else needed.  Below is an example of what the base architecture with a `sample` service looks like.
