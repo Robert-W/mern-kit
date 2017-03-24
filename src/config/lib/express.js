@@ -45,10 +45,10 @@ const configureMiddleware = app => {
 * @param {Express.app} app
 */
 const configureLocalVariables = app => {
-  app.locals.title = 'Robert-W Rocks';
-  app.locals.author = 'Robert-W';
-  app.locals.keywords = 'Express, Pug, GraphQL, Mongo, Mongoose, Docker';
-  app.locals.description = 'A quick start setup for a docker based developer environment for an application using MongoDB, Mongoose, and GraphQL.';
+  app.locals.title = config.app.title;
+  app.locals.author = config.app.author;
+  app.locals.keywords = config.app.keywords;
+  app.locals.description = config.app.description;
 };
 
 /**

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header snapshot Tests Sample of snapshot testing, not very useful, but shows how to do it 1`] = `
+<header
+  className="app__header"
+>
+  <div
+    className="inner"
+  >
+    <nav
+      className="app__navigation"
+    >
+      <ul
+        className="app__navigation-list"
+      >
+        <li
+          className="app__navigation-list__item"
+        >
+          <a
+            href="/auth/signout"
+            target="_self"
+          >
+            Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+`;

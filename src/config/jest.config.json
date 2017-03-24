@@ -3,5 +3,15 @@
   "collectCoverage": true,
   "coverageReporters": [
     "text"
+  ],
+  "moduleNameMapper": {
+    "\\.(css|scss)$": "<rootDir>/config/__mocks__/object.js",
+    "\\.(jpe?g|png|gif|svg)$": "<rootDir>/config/__mocks__/object.js",
+    "^home(.*)$": "/srv/src/client/home$1",
+    "^shared(.*)$": "/srv/src/client/shared$1",
+    "^users(.*)$": "/srv/src/client/users$1"
+  },
+  "testMatch": [
+    "<rootDir>/client/*/tests/**/*.js"
   ]
 }
