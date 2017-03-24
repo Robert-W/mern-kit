@@ -1,3 +1,6 @@
+# Currently this is not working, need to spend some time
+# to see what configurations are necessary to run docker-compose
+# in circleci v2, it needs to support docker-compose v3
 version: 2
 jobs:
   build:
