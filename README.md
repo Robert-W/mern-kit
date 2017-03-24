@@ -179,9 +179,7 @@ Docker can take up some space quickly, and when errors happen, you sometimes get
 - **Remove all hanging volumes** - `docker volume rm $(docker volume ls -qf "dangling=true")`
 
 ## Outstanding Items
-- Test the production deployment scripts
-- Add Jest Tests
-- Add a method for the user to add their own jest configurations per service (probably via a jest.config.js in each service dir)
+- Create/test some production deployment scripts
 
 ## License
 Mern-Kit is [MIT licensed](./LICENSE)

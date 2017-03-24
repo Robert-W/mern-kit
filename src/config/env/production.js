@@ -27,7 +27,6 @@ module.exports = {
       filename: '[name].[hash].js'
     },
     plugins: [
-      new webpack.DefinePlugin({ 'process.env': {'NODE_ENV': '"production"'}}),
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
@@ -46,6 +45,11 @@ module.exports = {
       new webpack.LoaderOptionsPlugin({
         options: {
           postcss: [autoprefixer]
+        }
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': '"production"'
         }
       })
     ]
