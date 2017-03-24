@@ -22,26 +22,39 @@ const mock = {
 
 let user1, user2, user3;
 
+/**
+* Create users for each describe block
+* @param {Function} done
+*/
+const createUsers = done => {
+  User.remove().exec(() => {
+    user1 = new User(mock.john);
+    user2 = new User(mock.jane);
+    user3 = new User(mock.john);
+    done();
+  });
+};
+
+/**
+* Remove all users after each describe block
+*/
+const removeUsers = () => {
+  User.remove().exec();
+};
+
 // Mocha Tests
 describe('User Model Unit Tests:', () => {
 
-  before(done => {
-    User.remove().exec(() => {
-      user1 = new User(mock.john);
-      user2 = new User(mock.jane);
-      user3 = new User(mock.john);
-      done();
-    });
-  });
-
-  it('should start with an empty collection', done => {
-    User.find().exec((err, users) => {
-      expect(users).to.have.length(0);
-      done();
-    });
-  });
-
   describe('Method Save', () => {
+
+    before(createUsers);
+
+    it('should start with an empty collection', done => {
+      User.find().exec((err, users) => {
+        expect(users).to.have.length(0);
+        done();
+      });
+    });
 
     it('should allow john to save without issues', done => {
       user1.save(err => {
@@ -113,10 +126,32 @@ describe('User Model Unit Tests:', () => {
       });
     });
 
+    after(removeUsers);
+
   });
 
-  after(() => {
-    User.remove().exec();
+  describe('Method Authenticate', () => {
+
+    before(createUsers);
+
+    it('should authenticate when given the correct password', done => {
+      user1.save(err => {
+        expect(err).to.not.exist;
+        expect(user1.authenticate('JD0eP@ss')).to.be.true;
+        done();
+      });
+    });
+
+    it('should not authenticate when given an incorrect password', done => {
+      user2.save(err => {
+        expect(err).to.not.exist;
+        expect(user2.authenticate('bogusPassword')).to.be.false;
+        done();
+      });
+    });
+
+    after(removeUsers);
+
   });
 
 });
