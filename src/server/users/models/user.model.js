@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const path = require('path');
-const util = require(path.resolve('./config/utilities'));
+const util = require(path.resolve('./config/utils/model.utils'));
 const config = require(path.resolve('./config/config'));
 const name = 'User';
 
@@ -46,7 +46,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     default: '',
-    validate: [util.validators.isNotEmpty, 'Please provide a valid e-mail.'],
+    validate: [util.validators.isUnique('User', 'email'), 'That email address is already taken.'],
     match: [/.+\@.+\..+/, 'Please provide a valid email address']
   },
   salt: {

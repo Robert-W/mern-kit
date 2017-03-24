@@ -18,6 +18,7 @@ services:
       - ./src/server:/srv/src/server
       - ./src/config:/srv/src/config
       - ./src/server.js:/srv/src/server.js
+      - ./.eslintrc:/srv/src/.eslintrc
     links:
       - mongo
   mongo:

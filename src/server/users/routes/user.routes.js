@@ -2,7 +2,7 @@ const controller = require('../controllers/user.controller');
 const schemas = require('../schemas/user.schema');
 const graphqlHTTP = require('express-graphql');
 const path = require('path');
-const utils = require(path.resolve('./config/utilities'));
+const utils = require(path.resolve('./config/utils/route.utils'));
 
 /**
 * @name exports

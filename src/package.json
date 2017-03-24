@@ -7,10 +7,10 @@
     "start": "node config/scripts/start",
     "populate": "node config/scripts/populate",
     "drop": "node config/scripts/drop",
-    "test": "npm run lint; npm run mocha; npm run prepare-jest; jest --config=config/jest.config.json",
-    "prepare-jest": "node config/scripts/prepare-jest",
+    "test": "set -e; npm run lint; npm run mocha; npm run jest",
+    "jest": "node config/scripts/prepare-jest; jest --config=config/jest.config.json",
     "mocha": "node config/scripts/mocha",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",

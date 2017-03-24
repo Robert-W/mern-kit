@@ -1,6 +1,6 @@
 const path = require('path');
+const utils = require(path.resolve('./config/utils/route.utils'));
 const controller = require('../controllers/home.controller');
-const utils = require(path.resolve('./config/utilities'));
 
 /**
 * @name exports

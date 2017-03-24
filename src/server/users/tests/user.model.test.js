@@ -126,6 +126,15 @@ describe('User Model Unit Tests:', () => {
       });
     });
 
+    it('should prevent saving a user with the same email', done => {
+      user3.username = 'Something Unique';
+      user3.email = '';
+      user3.save(err => {
+        expect(err).to.exist;
+        done();
+      });
+    });
+
     after(removeUsers);
 
   });

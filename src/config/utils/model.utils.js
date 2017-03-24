@@ -1,19 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('./config');
-
-/**
-* @function ensureAuthenticated
-* @summary middleware to ensure the user is authenticated
-* @param {Request} req - Express request object
-* @param {Response} res - Express response object
-* @param {Function} next - Next middleware
-*/
-function ensureAuthenticated (req, res, next) {
-  if (req.isAuthenticated && req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
+const config = require('../config');
 
 /**
 * @function isValidPassword
@@ -51,7 +37,7 @@ function isUnique (model, field) {
     return new Promise((resolve, reject) => {
       // Cannot be empty
       if (!isNotEmpty(value)) {
-        return resolve(false);
+        return reject(false);
       }
 
       // Build the query
@@ -61,7 +47,7 @@ function isUnique (model, field) {
       };
       // Check the record in the collection
       mongoose.model(model).findOne(query).exec((err, result) => {
-        if (err) { return resolve(false); }
+        if (err) { return reject(false); }
         return resolve(!result);
       });
     });
@@ -69,7 +55,6 @@ function isUnique (model, field) {
 }
 
 module.exports = {
-  ensureAuthenticated: ensureAuthenticated,
   validators: {
     isValidPassword: isValidPassword,
     isNotEmpty: isNotEmpty,
