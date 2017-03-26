@@ -11,7 +11,7 @@ module.exports = () => {
       if (err) { return done(err); }
       // Validate username/password
       if (!user || !user.authenticate(password)) {
-        return done(null, false, { message: 'Incorrect username/password' });
+        return done(null, false, { message: 'Incorrect username and/or password' });
       }
       // If they made it here, they're good
       return done(null, user);
