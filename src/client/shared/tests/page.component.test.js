@@ -2,23 +2,20 @@ import Page from 'shared/components/Page';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-/**
-* Enzyme is great for dom testing
-*/
-describe('Modal Wrapper Tests', () => {
+describe('Page Container Component Test', () => {
 
-  test('Rendering the Modal Wrapper should not throw', () => {
+  test('Rendering the Page component should not throw', () => {
     shallow(<Page />);
   });
 
   test('Should contain children passed into it', () => {
-    const wrapper = shallow(
+    const page = shallow(
       <Page>
         <div className='sample-content' />
       </Page>
     );
 
-    expect(wrapper.contains(<div className='sample-content' />)).toBeTruthy();
+    expect(page.contains(<div className='sample-content' />)).toBeTruthy();
   });
 
 });

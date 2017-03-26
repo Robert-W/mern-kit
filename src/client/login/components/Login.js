@@ -1,11 +1,12 @@
 import Page from 'shared/components/Page';
 import React, {Component} from 'react';
-import 'users/css/login.scss';
+import 'login/css/login.scss';
 
 export default class Login extends Component {
 
   signIn = () => {
     const {username, password} = this.refs;
+    // Create our request
     var request = new XMLHttpRequest();
     // Handle successful or failed logins
     request.onload = () => {
