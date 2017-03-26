@@ -1,4 +1,4 @@
-Mern-Kit
+Mern-Kit [![Build Status](https://travis-ci.org/Robert-W/mern-kit.svg?branch=master)](https://travis-ci.org/Robert-W/mern-kit)
 ========
 mern-kit is designed to be a starter kit which provides everything needed in a full stack application using Mongoose (MongoDB), Express, React, and Node, all running inside a docker container.
 
