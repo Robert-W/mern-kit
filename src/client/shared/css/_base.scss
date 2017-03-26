@@ -55,22 +55,4 @@ body {
   display: table-cell;
 }
 
-.button-theme {
-  border: 1px solid lighten($light-gray, 10%);
-  background: $theme-button;
-  border-radius: 2px;
-  padding: 7px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  color: white;
-
-  &:active {
-    background: darken($theme-button, 20%);
-  }
-
-  &:hover {
-    background: darken($theme-button, 10%);
-  }
-}
-
 @import '_grid';

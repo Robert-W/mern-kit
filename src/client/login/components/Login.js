@@ -74,11 +74,11 @@ export default class Login extends Component {
             <TextField
               ref='username'
               name='username'
-              floatingLabelText="Username" />
-            <TextField type="password"
+              floatingLabelText='Username' />
+            <TextField type='password'
               ref='password'
               name='password'
-              floatingLabelText="Password" />
+              floatingLabelText='Password' />
             <div className='login__form-actions flex'>
               <RaisedButton
                 label="Sign In"

@@ -1,3 +1,6 @@
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Header from 'shared/components/Header';
 import renderer from 'react-test-renderer';
 import React from 'react';
@@ -12,7 +15,9 @@ describe('Header snapshot Tests', () => {
 
   test('Sample of snapshot testing, not very useful, but shows how to do it', () => {
     const header = renderer.create(
-      <Header />
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <Header />
+      </MuiThemeProvider>
     );
     const tree = header.toJSON();
     expect(tree).toMatchSnapshot();
