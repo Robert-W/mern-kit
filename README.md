@@ -180,6 +180,8 @@ Docker can take up some space quickly, and when errors happen, you sometimes get
 
 ## Outstanding Items
 - Create/test some production deployment scripts
+- See Open Issues, there are a few there that need to be completed (most are for production benefits)
+- Add resources list to README
 
 ## License
 Mern-Kit is [MIT licensed](./LICENSE)
