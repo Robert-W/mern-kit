@@ -1,6 +1,6 @@
-#### Do you want to request a feature, improve documentation, or ask a question?
+### Do you want to request a feature, improve documentation, or ask a question?
 
-#### Do you want to report a bug?
+### Do you want to report a bug?
 
 **What is the current behavior?**
 
