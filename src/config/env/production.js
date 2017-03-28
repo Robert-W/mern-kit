@@ -42,6 +42,10 @@ module.exports = {
           screw_ie8: true
         }
       }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'common',
+        filename: 'common.[hash].js'
+      }),
       new webpack.LoaderOptionsPlugin({
         options: {
           postcss: [autoprefixer]

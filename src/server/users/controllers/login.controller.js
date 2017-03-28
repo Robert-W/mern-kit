@@ -1,5 +1,6 @@
 const path = require('path');
-const config = require(path.resolve('./config/config'));
+const { compiledAssets } = require(path.resolve('./config/config'));
+
 
 /**
 * @function login
@@ -10,5 +11,8 @@ const config = require(path.resolve('./config/config'));
 * @param {Express.Response} res - Express response object
 */
 exports.login = (req, res) => {
-  res.render('login', { loginjs: config.assets.login });
+  res.render('login', {
+    common: compiledAssets.js.common,
+    loginjs: compiledAssets.js.login
+  });
 };

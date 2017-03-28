@@ -1,7 +1,7 @@
 import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
 import React, {Component} from 'react';
-import 'shared/css/header.scss';
+import 'common/css/header.scss';
 
 /* <header className='app__header'>
   <div className='inner'>

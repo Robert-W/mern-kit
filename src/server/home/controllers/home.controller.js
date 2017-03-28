@@ -1,5 +1,5 @@
 const path = require('path');
-const config = require(path.resolve('./config/config'));
+const { compiledAssets } = require(path.resolve('./config/config'));
 
 /**
 * @function home
@@ -10,5 +10,8 @@ const config = require(path.resolve('./config/config'));
 * @param {Express.Response} res - Express response object
 */
 exports.home = (req, res) => {
-  res.render('home', { homejs: config.assets.home });
+  res.render('home', {
+    common: compiledAssets.js.common,
+    homejs: compiledAssets.js.home
+  });
 };
