@@ -45,7 +45,7 @@ export default class Login extends Component {
     this.setState({
       dialogOpen: true,
       dialogTitle: 'Sign Up',
-      dialogMessage: 'The Sign Up feature has not benn implemented yet, it will be coming soon!'
+      dialogMessage: 'The Sign Up feature has not yet been implemented, it\'s coming soon!'
     });
   };
 

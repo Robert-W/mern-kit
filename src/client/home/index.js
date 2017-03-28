@@ -5,6 +5,10 @@ import Home from 'home/components/Home';
 import {render} from 'react-dom';
 import React from 'react';
 
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 const App = () => (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <Home />

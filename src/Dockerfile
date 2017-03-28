@@ -16,7 +16,7 @@ WORKDIR /srv/src
 ENV PORT 3000
 
 # Copy & install files for third party dependencies
-COPY package.json /srv/src/
+ADD package.json /srv/src/package.json
 RUN npm install
 # RUN yarn install --pure-lockfile
 

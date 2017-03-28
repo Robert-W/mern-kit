@@ -13,10 +13,21 @@ import React from 'react';
 */
 describe('Header snapshot Tests', () => {
 
-  test('Sample of snapshot testing, not very useful, but shows how to do it', () => {
+  test('Should render a simple header wrapped around an app bar', () => {
     const header = renderer.create(
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <Header />
+      </MuiThemeProvider>
+    );
+    const tree = header.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  test('Should render a simple header with a link in it', () => {
+    const props = { links: { logout: true }};
+    const header = renderer.create(
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <Header {...props} />
       </MuiThemeProvider>
     );
     const tree = header.toJSON();

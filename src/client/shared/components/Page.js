@@ -7,7 +7,7 @@ export default class Page extends Component {
   render () {
     return (
       <div className='app'>
-        <Header />
+        <Header {...this.props} />
         <div className='app__body'>
           {this.props.children}
         </div>

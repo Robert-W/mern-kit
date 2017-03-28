@@ -1,6 +1,6 @@
-#### If you are requesting a feature or updating documentation, please explain here
+#### Do you want to request a feature, improve documentation, or ask a question?
 
-#### If reporting a bug, please fill out the following
+#### Do you want to report a bug?
 
 **What is the current behavior?**
 

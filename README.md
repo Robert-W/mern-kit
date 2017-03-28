@@ -75,7 +75,7 @@ docker-compose run web npm test
 
 If you need to regenerate jest snapshots
 ```
-docker-compose exec web npm test -- -u
+docker-compose run web npm run jest -- -u
 ```
 
 If you want to run eslint
