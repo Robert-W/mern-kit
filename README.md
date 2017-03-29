@@ -109,15 +109,15 @@ mern-kit is using Webpack 2 for bundling, asset loading, and hot module replacem
 ```
 //- src/client/sample/build.config.js
 module.exports = {
-	// Add Webpack Config in here
-	webpack: {
-		alias: {
-	    sample: 'client/sample'
-	  },
-	  entry: {
-	    sample: 'client/sample/index.js'
-	  }
-	}
+  // Add Webpack Config in here
+  webpack: {
+    alias: {
+      sample: 'client/sample'
+    },
+    entry: {
+      sample: 'client/sample/index.js'
+    }
+  }
 };
 ```
 
@@ -162,18 +162,18 @@ mern-kit will use globs to find all test files in each service directory. This w
 In each client service folder, you can provide some custom build configurations via a `build.config.js`. All are optional and they have the following format:
 ```javascript
 module.exports = {
-	webpack: {
-		alias: {
-			[key:String]: String // Ex. login: 'client/login'
-		},
-		entry: {
-			[key:String]: String // Ex. login: 'client/login/index.js'
-		}
-	},
-	build: {
-		criticalStyle: String, // Ex. login/css/critical.scss
-		rootComponent: String  // Ex. login/components/Login.js
-	}
+  webpack: {
+    alias: {
+      [key:String]: String // Ex. login: 'client/login'
+    },
+    entry: {
+      [key:String]: String // Ex. login: 'client/login/index.js'
+    }
+  },
+  build: {
+    criticalStyle: String, // Ex. login/css/critical.scss
+    rootComponent: String  // Ex. login/components/Login.js
+  }
 };
 ```
 
@@ -184,7 +184,29 @@ Configure an alias so you do not need to load modules with a relative path. This
 Add an entry to webpack config. This will save the file path of the asset with the hash to `config.compiledAssets.js.[name].[hash].js`. You can add this to your server controllers so they get loaded in your pug templates. See [`src/server/users/controllers/login.controller.js`](./src/server/users/controllers/login.controller.js) for an example. You should also load the common module as well.
 
 #### criticalStyle
-Add path to critical style. You need to also import this style in one of your components. This will allow ExtractTextPlugin to pull it from the JS bundle and save it to `config.compiledAssets.css.[name]`. So `criticalStyle: 'login/css/login.scss'` would be save the source in `config.compiledAssets.css.login`. You can then inject this into your pug template to have critical css injected in the head to prevent the flash of unstyled content.
+Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so uou can then inject this into your pug template to prevent the flash of unstyled content. Example:
+```javascript
+// App.js
+import 'path/to/critical.scss';
+// build.config.js
+module.exports = {
+  build: {
+    criticalStyle: '/path/to/critical.scss'
+  }
+}
+// Route Controller for the html page that renders App.js
+exports.login = (req, res) => {
+  res.render('login', {
+    // This matches the criticalStyle value provided above
+    criticalCSS: config.compiledAssets.css['/path/to/critical.scss']
+  });
+};
+// Pug template
+extends ../../core/views/layout.pug
+block head
+  style.
+    criticalCSS
+```
 
 #### rootComponent
 Coming Soon
