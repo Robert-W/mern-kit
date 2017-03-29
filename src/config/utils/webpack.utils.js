@@ -36,7 +36,6 @@ const middleware = () => {
     } else {
       logger.info('Webpack compilation complete, updating asset map now');
       config.compiledAssets.js = generateAssetMap(stats);
-      console.log(config.compiledAssets.js);
     }
   });
 
