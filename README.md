@@ -164,16 +164,16 @@ In each client service folder, you can provide some custom build configurations 
 module.exports = {
 	webpack: {
 		alias: {
-      [key:String]: String // Ex. login: 'client/login'
-    },
-    entry: {
-      [key:String]: String // Ex. login: 'client/login/index.js'
-    }
+			[key:String]: String // Ex. login: 'client/login'
+		},
+		entry: {
+			[key:String]: String // Ex. login: 'client/login/index.js'
+		}
 	},
-  build: {
-    criticalStyle: String, // Ex. login/css/critical.scss
-    rootComponent: String  // Ex. login/components/Login.js
-  }
+	build: {
+		criticalStyle: String, // Ex. login/css/critical.scss
+		rootComponent: String  // Ex. login/components/Login.js
+	}
 };
 ```
 
