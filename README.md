@@ -184,7 +184,7 @@ Configure an alias so you do not need to load modules with a relative path. This
 Add an entry to webpack config. This will save the file path of the asset with the hash to `config.compiledAssets.js.[name].[hash].js`. You can add this to your server controllers so they get loaded in your pug templates. See [`src/server/users/controllers/login.controller.js`](./src/server/users/controllers/login.controller.js) for an example. You should also load the common module as well.
 
 #### criticalStyle
-Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so uou can then inject this into your pug template to prevent the flash of unstyled content. Example:
+Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so you can then inject this into your pug template to prevent the flash of un-styled content. Example:
 ```javascript
 // App.js
 import 'path/to/critical.scss';
@@ -196,16 +196,16 @@ module.exports = {
 }
 // Route Controller for the html page that renders App.js
 exports.login = (req, res) => {
-  res.render('login', {
+  res.render('index', {
     // This matches the criticalStyle value provided above
     criticalCSS: config.compiledAssets.css['/path/to/critical.scss']
   });
 };
-// Pug template
+// index.pug
 extends ../../core/views/layout.pug
 block head
   style.
-    criticalCSS
+    #{criticalCSS}
 ```
 
 #### rootComponent
