@@ -1,4 +1,4 @@
-import LoadingWheel from 'shared/components/Loaders/LoadingWheel';
+import LoadingWheel from 'common/components/Loaders/LoadingWheel';
 import { shallow } from 'enzyme';
 import React from 'react';
 

@@ -1,22 +1,10 @@
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const logger = require('./winston');
+const webpackUtils = require('../utils/webpack.utils');
+const webpackConfig = require('../webpack.config');
+const logger = require('../winston');
+const config = require('../config');
 const webpack = require('webpack');
-const path = require('path');
-const webpackConfig = require(path.resolve('./config/webpack.config'));
-const config = require(path.resolve('./config/config'));
-
-/**
-* @name createAssetMap
-* @summary create a map of compiled assets
-* @param {object} stats - compilation stats from webpack
-* @return {object} asset map
-*/
-const createAssetMap = stats => Object.keys(stats.assetsByChunkName).reduce((chunks, name) => {
-  const asset = stats.assetsByChunkName[name];
-  chunks[name] = (typeof asset !== 'string') ? asset[0] : asset;
-  return chunks;
-}, {});
 
 /**
 * @name setupDevMiddleware
@@ -41,7 +29,7 @@ const setupDevMiddleware = () => {
     }
     // Update our asset map
     logger.info('Webpack compilation complete, updating asset map now');
-    config.assets = createAssetMap(stats);
+    config.compiledAssets.js = webpackUtils.generateAssetMap(stats);
   });
 
   return {
@@ -79,7 +67,7 @@ const compileProductionAssets = () => new Promise((resolve, reject) => {
     logger.info('------------------------------');
 
     // Update our asset map
-    config.assets = createAssetMap(statistics.toJson());
+    config.compiledAssets.js = webpackUtils.generateAssetMap(statistics.toJson());
     resolve();
   });
 });

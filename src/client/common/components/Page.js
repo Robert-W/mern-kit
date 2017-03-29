@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from './Header';
-import 'shared/css/page.scss';
+import 'common/css/page.scss';
 
 export default class Page extends Component {
 

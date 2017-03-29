@@ -1,4 +1,4 @@
-import ModalWrapper from 'shared/components/Modal/ModalWrapper';
+import ModalWrapper from 'common/components/Modal/ModalWrapper';
 import { shallow } from 'enzyme';
 import React from 'react';
 

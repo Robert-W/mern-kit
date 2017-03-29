@@ -1,10 +1,10 @@
+const webpackUtils = require('../utils/webpack.utils');
 const methodOverride = require('method-override');
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const passport = require('passport');
-const webpack = require('./webpack');
 const logger = require('./winston');
 const express = require('express');
 const helmet = require('helmet');
@@ -33,9 +33,9 @@ const configureMiddleware = app => {
   app.use(methodOverride());
   // If were in development mode, add some webpack middleware
   if (process.env.NODE_ENV === 'development') {
-    const {devMiddleware, hotMiddleware} = webpack.setupDevMiddleware();
-    app.use(devMiddleware);
-    app.use(hotMiddleware);
+    const middleware = webpackUtils.middleware();
+    app.use(middleware.dev);
+    app.use(middleware.hot);
   }
 };
 
@@ -160,11 +160,11 @@ const configureErrorRoutes = app => {
 * @return {Promise}
 */
 const generateProductionAssets = () => new Promise((resolve, reject) => {
-  // Middleware takes car of this in development, only need to wait for this in production
+  // Middleware takes care of this in development, only need to run this for production
   if (process.env.NODE_ENV !== 'production') {
     resolve();
   } else {
-    webpack.compileProductionAssets().then(resolve, reject);
+    webpackUtils.compileProductionAssets().then(resolve, reject);
   }
 });
 

@@ -1,4 +1,4 @@
-import Page from 'shared/components/Page';
+import Page from 'common/components/Page';
 import { shallow } from 'enzyme';
 import React from 'react';
 
