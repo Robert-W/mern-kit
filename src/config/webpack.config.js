@@ -6,16 +6,18 @@ const path = require('path');
 const glob = require('glob');
 
 // Grab all the webpack.config.js files
-const configs = glob.sync(assets.webpack).map(webpackConfig => require(path.resolve(webpackConfig)));
+const configs = glob.sync(assets.build).map(conf => require(path.resolve(conf)));
 
 // Merge all the entries together
-const entries = configs.reduce((all, webpackConfig) => Object.assign(all, webpackConfig.webpack.entry), {});
+const entries = configs.reduce((all, conf) => Object.assign(all, conf.webpack.entry), {});
 
 // Merge all the aliases together
-const aliases = configs.reduce((all, webpackConfig) => Object.assign(all, webpackConfig.webpack.alias), {});
+const aliases = configs.reduce((all, conf) => Object.assign(all, conf.webpack.alias), {});
 
 // Get a list of critical css files to load, filter out any undefineds or empty strings
-const criticalStyles = configs.map(webpackConfig => webpackConfig.criticalStyle).filter(file => file);
+const criticalStyles = configs
+  .filter(conf => conf.build && conf.build.criticalStyle) // Remove any elements without a criticalStyle setting
+  .map(conf => conf.build.criticalStyle);
 
 // Resolve their paths
 for (const key in entries) { entries[key] = path.resolve(entries[key]); }

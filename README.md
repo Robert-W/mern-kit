@@ -28,7 +28,7 @@ client
     |- components
     |- css
     |- index.js
-    |- webpack.config.js
+    |- build.config.js
 server
   |- sample
     |- controllers
@@ -105,20 +105,23 @@ docker-compose exec web npm run populate
 mern-kit has several tools already setup for your convenience. If you would like to change their default configurations, see the sections below.
 
 ### Webpack
-mern-kit is using Webpack 2 for bundling, asset loading, and hot module replacement in development. Configurations are located in the various environment files.  Common config is in the `src/config/env/default.js` environment file, while development and production configs are in the `src/config/env/development.js` and `src/config/env/production.js` file, respectively. You can also configure aliases and entries inside your service folder.  For example, if you add a service called `sample`, you can add a `webpack.config.js` file in the client folder like so:
+mern-kit is using Webpack 2 for bundling, asset loading, and hot module replacement (coming soon) in development. Configurations are located in the various environment files.  Common config is in the `src/config/env/default.js` environment file, while development and production configs are in the `src/config/env/development.js` and `src/config/env/production.js` file, respectively. You can also configure aliases and entries inside your service folder.  For example, if you add a service called `sample`, you can add a `build.config.js` file in the client folder and add these options like so:
 ```
-//- src/client/sample/webpack.config.js
+//- src/client/sample/build.config.js
 module.exports = {
-  alias: {
-    sample: 'client/sample'
-  },
-  entry: {
-    sample: 'client/sample/index.js'
-  }
+	// Add Webpack Config in here
+	webpack: {
+		alias: {
+	    sample: 'client/sample'
+	  },
+	  entry: {
+	    sample: 'client/sample/index.js'
+	  }
+	}
 };
 ```
 
-View the user's service for an example.
+View the user's service for an example or see Client Build Config below.
 
 ### CSS - SCSS
 mern-kit uses a scss loader so you can import scss files. It also has postcss loader setup with a loader options plugin that adds the autoprefixer. Feel free to add more configurations as necessary to the webpack config in the environment files (`src/config/env`). You can import a scss file like so:
@@ -154,6 +157,37 @@ mern-kit will use globs to find all test files in each service directory. This w
       |- sample.model.test.js
       |- sample.controller.test.js
 ```
+
+### Client Build Config
+In each client service folder, you can provide some custom build configurations via a `build.config.js`. All are optional and they have the following format:
+```javascript
+module.exports = {
+	webpack: {
+		alias: {
+      [key:String]: String // Ex. login: 'client/login'
+    },
+    entry: {
+      [key:String]: String // Ex. login: 'client/login/index.js'
+    }
+	},
+  build: {
+    criticalStyle: String, // Ex. login/css/critical.scss
+    rootComponent: String  // Ex. login/components/Login.js
+  }
+};
+```
+
+#### alias
+Configure an alias so you do not need to load modules with a relative path. This is expecially useful when sharing components across services.
+
+#### entry
+Add an entry to webpack config. This will save the file path of the asset with the hash to `config.compiledAssets.js.[name].[hash].js`. You can add this to your server controllers so they get loaded in your pug templates. See [`src/server/users/controllers/login.controller.js`](./src/server/users/controllers/login.controller.js) for an example. You should also load the common module as well.
+
+#### criticalStyle
+Add path to critical style. You need to also import this style in one of your components. This will allow ExtractTextPlugin to pull it from the JS bundle and save it to `config.compiledAssets.css.[name]`. So `criticalStyle: 'login/css/login.scss'` would be save the source in `config.compiledAssets.css.login`. You can then inject this into your pug template to have critical css injected in the head to prevent the flash of unstyled content.
+
+#### rootComponent
+Coming Soon
 
 ## Contributing
 Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.
