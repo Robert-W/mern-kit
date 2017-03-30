@@ -1,4 +1,4 @@
-import Page from 'common/components/Page';
+import Page from 'common/js/components/Page';
 import React, {Component} from 'react';
 
 const pageOptions = {

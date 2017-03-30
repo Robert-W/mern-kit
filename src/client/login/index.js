@@ -1,7 +1,7 @@
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Login from 'login/components/Login';
+import Login from 'login/js/components/Login';
 import {render} from 'react-dom';
 import React from 'react';
 
