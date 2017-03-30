@@ -7,9 +7,9 @@
   "moduleNameMapper": {
     "\\.(css|scss)$": "<rootDir>/config/__mocks__/object.js",
     "\\.(jpe?g|png|gif|svg)$": "<rootDir>/config/__mocks__/object.js",
+    "^common(.*)$": "/srv/src/client/common$1",
     "^home(.*)$": "/srv/src/client/home$1",
-    "^login(.*)$": "/srv/src/client/login$1",
-    "^shared(.*)$": "/srv/src/client/shared$1"
+    "^login(.*)$": "/srv/src/client/login$1"
   },
   "testMatch": [
     "<rootDir>/client/*/tests/**/*.js"

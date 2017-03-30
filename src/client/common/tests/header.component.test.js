@@ -1,7 +1,7 @@
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Header from 'common/components/Header';
+import Header from 'common/js/components/Header';
 import renderer from 'react-test-renderer';
 import React from 'react';
 
