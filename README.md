@@ -172,7 +172,11 @@ module.exports = {
   },
   build: {
     criticalStyle: String, // Ex. login/css/critical.scss
-    rootComponent: String  // Ex. login/components/Login.js
+    // prerender should use the same format as entry, but use a relative path
+    //  for the key instead of a filename
+    prerender: {
+			[key:String]: String // Ex. './public/components': 'login/components/Login.js'
+		}
   }
 };
 ```
@@ -184,23 +188,29 @@ Configure an alias so you do not need to load modules with a relative path. This
 Add an entry to webpack config. This will save the file path of the asset with the hash to `config.compiledAssets.js.[name].[hash].js`. You can add this to your server controllers so they get loaded in your pug templates. See [`src/server/users/controllers/login.controller.js`](./src/server/users/controllers/login.controller.js) for an example. You should also load the common module as well.
 
 #### criticalStyle
-Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so you can then inject this into your pug template to prevent the flash of un-styled content. Example:
+Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so you can then inject this into your pug template to prevent the flash of un-styled content. Below is an exmaple of the four steps necessary to use this feature(I am playing with ways to abstract this further):
 ```javascript
+// 1. Import the scss file you want in your component
 // App.js
 import 'path/to/critical.scss';
+// 2. Add a build configuration that specifies the file you want to pull out of the JS bundle
 // build.config.js
 module.exports = {
   build: {
-    criticalStyle: '/path/to/critical.scss'
+    criticalStyle: 'path/to/critical.scss'
   }
 }
+// 3. Add the compiled source to your locals in your router.
+// config.compiledAssets.css['path/to/critical.scss'] is the actual compiled css as a string
 // Route Controller for the html page that renders App.js
 exports.login = (req, res) => {
   res.render('index', {
-    // This matches the criticalStyle value provided above
-    criticalCSS: config.compiledAssets.css['/path/to/critical.scss']
+    // This matches the criticalStyle value provided in Step 2
+    criticalCSS: config.compiledAssets.css['path/to/critical.scss']
   });
 };
+// 4. Append the content to a style tag in your Pug template, if the value criticalCSS is empty
+// then you just get an empty style tag on the page
 // index.pug
 extends ../../core/views/layout.pug
 block head
@@ -208,7 +218,7 @@ block head
     #{criticalCSS}
 ```
 
-#### rootComponent
+#### prerender
 Coming Soon
 
 ## Contributing

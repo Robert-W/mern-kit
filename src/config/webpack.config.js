@@ -19,6 +19,11 @@ const criticalStyles = configs
   .filter(conf => conf.build && conf.build.criticalStyle) // Remove any elements without a criticalStyle setting
   .map(conf => conf.build.criticalStyle);
 
+// Do the same for components that should be prerendered
+// const componentsToRender = configs
+//   .filter(conf => conf.build && conf.build.prerender)
+//   .map(conf => conf.build.prerender);
+
 // Resolve their paths
 for (const key in entries) { entries[key] = path.resolve(entries[key]); }
 for (const key in aliases) { aliases[key] = path.resolve(aliases[key]); }
@@ -49,6 +54,8 @@ if (process.env.NODE_ENV === 'production') {
   // Add Inline Style Plugin, callback get's invoked each time a compilation is matched
   // Add the filename and source to the asset map
   config.compiledAssets.css = {};
+  // TODO: Change name from InlineStylePlugin to CompilationCallbackPlugin and have it
+  // pass back the asset itself so the code can decide how to handle it
   config.webpack.plugins.unshift(new InlineStylePlugin(/\.scss$/, (name, source) => {
     config.compiledAssets.css[name] = source;
   }));

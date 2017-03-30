@@ -14,6 +14,6 @@ module.exports = {
   },
   build: {
     criticalStyle: '',
-    rootComponent: ''
+    prerender: ''
   }
 };
