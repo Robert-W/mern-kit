@@ -1,5 +1,5 @@
+const CompilationCallbackPlugin = require('./utils/CompilationCallbackPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const InlineStylePlugin = require('./utils/InlineStylePlugin');
 const assets = require('./assets');
 const config = require('./config');
 const path = require('path');
@@ -51,13 +51,13 @@ if (process.env.NODE_ENV === 'production') {
       })
     });
   });
-  // Add Inline Style Plugin, callback get's invoked each time a compilation is matched
-  // Add the filename and source to the asset map
+  // Add the compilation callback plugin
   config.compiledAssets.css = {};
-  // TODO: Change name from InlineStylePlugin to CompilationCallbackPlugin and have it
-  // pass back the asset itself so the code can decide how to handle it
-  config.webpack.plugins.unshift(new InlineStylePlugin(/\.scss$/, (name, source) => {
-    config.compiledAssets.css[name] = source;
+  config.webpack.plugins.unshift(new CompilationCallbackPlugin((name, asset) => {
+    // Add SASS bundles to our compiledAssets as raw source
+    if (/\.scss$/.test(name)) {
+      config.compiledAssets.css[name] = asset.source();
+    }
   }));
 }
 

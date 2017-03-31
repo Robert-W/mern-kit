@@ -175,8 +175,8 @@ module.exports = {
     // prerender should use the same format as entry, but use a relative path
     //  for the key instead of a filename
     prerender: {
-			[key:String]: String // Ex. './public/components': 'login/components/Login.js'
-		}
+      [key:String]: String // Ex. './public/components': 'login/components/Login.js'
+    }
   }
 };
 ```
