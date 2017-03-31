@@ -55,7 +55,7 @@
     "helmet": "^3.4.1",
     "material-ui": "^0.17.1",
     "method-override": "^2.3.7",
-    "mongoose": "^4.8.5",
+    "mongoose": "^4.9.2",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",

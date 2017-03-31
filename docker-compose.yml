@@ -18,9 +18,6 @@ services:
       - ./src/server:/srv/src/server
       - ./src/config:/srv/src/config
       - ./src/server.js:/srv/src/server.js
-      - ./src/package.json:/srv/src/package.json
-      # Move this in so the linting tests can run
-      - ./.eslintrc:/srv/src/.eslintrc
     links:
       - mongo
   mongo:

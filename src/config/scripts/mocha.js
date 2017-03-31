@@ -10,7 +10,7 @@ const config = require(path.resolve('./config/config'));
 const harness = new Mocha({
   ui: 'bdd',
   useColors: true,
-  reporter: 'nyan'
+  reporter: 'spec'
 });
 
 // Add all mocha files

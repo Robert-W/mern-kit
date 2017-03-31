@@ -33,13 +33,12 @@ function isNotEmpty (value) {
 * @return {Function} - a validator function that will pass a boolean through the callback
 */
 function isUnique (model, field) {
-  return value => {
-    return new Promise((resolve, reject) => {
+  return function (value) {
+    return new Promise((resolve, _) => {
       // Cannot be empty
       if (!isNotEmpty(value)) {
-        return reject(false);
+        return resolve(false);
       }
-
       // Build the query
       const query = {
         _id: { $ne: this._id },
@@ -47,7 +46,7 @@ function isUnique (model, field) {
       };
       // Check the record in the collection
       mongoose.model(model).findOne(query).exec((err, result) => {
-        if (err) { return reject(false); }
+        if (err) { return resolve(false); }
         return resolve(!result);
       });
     });
