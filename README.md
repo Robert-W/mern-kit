@@ -244,10 +244,17 @@ Docker can take up some space quickly, and when errors happen, you sometimes get
 - **Remove all hanging images** - `docker rmi $(docker images -q -f "dangling=true")`
 - **Remove all hanging volumes** - `docker volume rm $(docker volume ls -qf "dangling=true")`
 
-## Outstanding Items
-- Create/test some production deployment scripts
-- See Open Issues, there are a few there that need to be completed (most are for production benefits)
-- Add resources list to README
+### Resources
+- [React](https://facebook.github.io/react/)
+- [Redux](http://redux.js.org/)
+- [Mongo](https://www.mongodb.com/)
+- [Docker](https://www.docker.com/)
+- [Webpack](https://webpack.js.org/)
+- [Express](http://expressjs.com/)
+- [Mongoose](http://mongoosejs.com/)
+- [Jest](https://facebook.github.io/jest/)
+- [Mocha](https://mochajs.org/)
+- [Enzyme](http://airbnb.io/enzyme/)
 
 ## License
 Mern-Kit is [MIT licensed](./LICENSE)
