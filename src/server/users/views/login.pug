@@ -1,6 +1,9 @@
 extends ../../core/views/layout.pug
 block head
   script(src=common)
+  style.
+    #{critical}
 block content
   div#mount
+    != markup
   script(src=loginjs, async)
