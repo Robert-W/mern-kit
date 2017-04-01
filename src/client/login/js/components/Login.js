@@ -4,7 +4,6 @@ import Dialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
 import Page from 'common/js/components/Page';
 import React, {Component} from 'react';
-import 'login/css/login.scss';
 
 export default class Login extends Component {
 

@@ -188,7 +188,7 @@ Configure an alias so you do not need to load modules with a relative path. This
 Add an entry to webpack config. This will save the file path of the asset with the hash to `config.compiledAssets.js.[name].[hash].js`. You can add this to your server controllers so they get loaded in your pug templates. See [`src/server/users/controllers/login.controller.js`](./src/server/users/controllers/login.controller.js) for an example. You should also load the common module as well.
 
 #### criticalStyle
-Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so you can then inject this into your pug template to prevent the flash of un-styled content. Below is an exmaple of the four steps necessary to use this feature(I am playing with ways to abstract this further):
+Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so you can then inject this into your pug template to prevent the flash of un-styled content. Below is an example of the four steps necessary to use this feature(I am playing with ways to abstract this further):
 ```javascript
 // 1. Import the scss file you want in your component
 // App.js
@@ -219,7 +219,37 @@ block head
 ```
 
 #### prerender
-Coming Soon
+If you are going to prerender, it is recommended that you also inject some styles with the above `criticalStyle` configuration to prevent the flash of unstyled content. The prerender option works by compiling the configured components ahead of time and saving the required component in `config.compiledAssets.js` so you can access it throughout the codebase. You can then render to string and pass the markup to a pug template very easily. For example:
+```javascript
+// 1. In your build.config.js, add your component with a unique name (name must be unique)
+module.exports = {
+  build: {
+    prerender: {
+      'login-component': 'login/js/components/Login.js'
+    }
+  }
+}
+// 2. Render to String and add to your locals in the router
+const ReactDOMServer = require('react-dom/server');
+const React = require('react');
+// At the login route
+exports.login = (req, res) => {
+  // Default is the default export and is a function, you can pass props in here
+  // You may want to wrap this in a if process.env.NODE_ENV is production since components
+  // are not prerendered in development mode. Or just null check on compiledAssets :)
+  const element = React.createElement(compiledAssets.js['login-component'].default);
+  res.render('login', {
+    markup: ReactDOMServer.renderToString(element),
+  });
+};
+// 3. Let Pug render it for you, you can have this code in place
+extends ../../core/views/layout.pug
+block head
+  script(src=common)
+block content
+  div#mount // Add the markup inside whichever comopnent you are mounting to
+    != markup
+```
 
 ## Contributing
 Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.
@@ -244,7 +274,7 @@ Docker can take up some space quickly, and when errors happen, you sometimes get
 - **Remove all hanging images** - `docker rmi $(docker images -q -f "dangling=true")`
 - **Remove all hanging volumes** - `docker volume rm $(docker volume ls -qf "dangling=true")`
 
-### Resources
+## Resources
 - [React](https://facebook.github.io/react/)
 - [Redux](http://redux.js.org/)
 - [Mongo](https://www.mongodb.com/)

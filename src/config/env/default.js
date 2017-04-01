@@ -42,6 +42,9 @@ module.exports = {
   },
 
   // Storage location for compiled assets
-  compiledAssets: {}
+  compiledAssets: {
+    js: {},
+    css: {}
+  }
 
 };

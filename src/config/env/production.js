@@ -20,7 +20,6 @@ module.exports = {
   },
 
   webpack: {
-    progress: true,
     profile: true,
     output: {
       path: path.join(process.cwd(), 'public'),
@@ -28,7 +27,6 @@ module.exports = {
     },
     plugins: [
       new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
           screw_ie8: true,
@@ -41,10 +39,6 @@ module.exports = {
           comments: false,
           screw_ie8: true
         }
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'common',
-        filename: 'common.[hash].js'
       }),
       new webpack.LoaderOptionsPlugin({
         options: {

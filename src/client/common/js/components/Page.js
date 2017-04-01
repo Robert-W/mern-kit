@@ -1,17 +1,24 @@
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import React, {Component} from 'react';
 import Header from './Header';
-import 'common/css/page.scss';
+
+//- Set the user agent so server rendering works
+lightBaseTheme.userAgent = 'all';
 
 export default class Page extends Component {
 
   render () {
     return (
-      <div className='app'>
-        <Header {...this.props} />
-        <div className='app__body'>
-          {this.props.children}
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <div className='app'>
+          <Header {...this.props} />
+          <div className='app__body'>
+            {this.props.children}
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }

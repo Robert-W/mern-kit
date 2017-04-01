@@ -3,18 +3,24 @@ const assets = require('./assets');
 const path = require('path');
 const glob = require('glob');
 
-const getFilePaths = config => ({
+const getFilePaths = () => ({
   files: {
     // Get scripts
-    scripts: glob.sync(config.scripts),
+    scripts: glob.sync(assets.scripts),
     // Get express routes
-    routes: glob.sync(config.routes),
+    routes: glob.sync(assets.routes),
     // Get mongoose models
-    models: glob.sync(config.models),
+    models: glob.sync(assets.models),
     // Get mocha tests
-    mocha: glob.sync(config.mocha),
+    mocha: glob.sync(assets.mocha),
     // Get views
-    views: glob.sync(config.views)
+    views: glob.sync(assets.views)
+  }
+});
+
+const getClientConfig = () => ({
+  client: {
+    build: glob.sync(assets.build).map(conf => require(path.resolve(conf)))
   }
 });
 
@@ -34,9 +40,11 @@ const make = () => {
     logger.warn(`No configuration files found matching environment ${process.env.NODE_ENV}`);
   }
   // Get assets config
-  const assetPaths = getFilePaths(assets);
+  const filesConfig = getFilePaths();
+  // Get the client config
+  const clientConfig = getClientConfig();
 
-  return Object.assign({}, defaultConfig, environmentConfig, assetPaths);
+  return Object.assign({}, defaultConfig, environmentConfig, filesConfig, clientConfig);
 };
 
 module.exports = make();

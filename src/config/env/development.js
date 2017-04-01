@@ -34,10 +34,6 @@ module.exports = {
           postcss: [autoprefixer]
         }
       }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'common',
-        filename: 'common.[hash].js'
-      }),
       new webpack.DefinePlugin({
         'process.env': {
           'NODE_ENV': '"development"'

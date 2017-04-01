@@ -1,9 +1,10 @@
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('../webpack.config');
+const makeWebpackConfig = require('../webpack.config');
 const logger = require('../lib/winston');
 const config = require('../config');
 const webpack = require('webpack');
+const path = require('path');
 
 /**
 * @name generateAssetMap
@@ -24,7 +25,7 @@ const generateAssetMap = stats => Object.keys(stats.assetsByChunkName).reduce((c
 */
 const middleware = () => {
   // Create our compiler
-  const compiler = webpack(webpackConfig);
+  const compiler = webpack(makeWebpackConfig());
   // WHen the compiler completes, update our assets and log any issues
   compiler.plugin('done', statistics => {
     const stats = statistics.toJson();
@@ -35,7 +36,7 @@ const middleware = () => {
       logger.warn('Compilation warnings from webpack', stats.warnings);
     } else {
       logger.info('Webpack compilation complete, updating asset map now');
-      config.compiledAssets.js = generateAssetMap(stats);
+      config.compiledAssets.js = Object.assign(config.compiledAssets.js, generateAssetMap(stats));
     }
   });
 
@@ -51,7 +52,7 @@ const middleware = () => {
 * @return {Promise}
 */
 const compileAssets = () => new Promise((resolve, reject) => {
-  const compiler = webpack(webpackConfig);
+  const compiler = webpack(makeWebpackConfig());
   // Apply the progress plugin
   compiler.apply(new webpack.ProgressPlugin((percent, message) => {
     logger.info(`${Math.floor(percent * 100)}% ${message.toString()}`);
@@ -72,8 +73,8 @@ const compileAssets = () => new Promise((resolve, reject) => {
 
     logger.info('\x1B[1mWebpack bundling has completed\x1B[22m');
     logger.info('------------------------------');
-    // Update our asset map
-    config.compiledAssets.js = generateAssetMap(statistics.toJson());
+    // Update our asset map, Components and Inline Styles have already been added in webpack.config.js
+    config.compiledAssets.js = Object.assign(config.compiledAssets.js, generateAssetMap(statistics.toJson()));
     resolve();
   });
 });
@@ -83,8 +84,39 @@ const compileAssets = () => new Promise((resolve, reject) => {
 * @summary Prerender our components and add them to the asset map
 * @return {Promise}
 */
-const prerenderComponents = () => new Promise((resolve, _) => {
-  resolve();
+const prerenderComponents = () => new Promise((resolve, reject) => {
+  // Get the entry points for all prerendered components
+  const entries = config.client.build
+    .filter(conf => conf.build && conf.build.prerender)
+    .map(conf => conf.build.prerender)
+    .reduce((all, conf) => Object.assign(all, conf), {});
+  // Modify the webpack config with some new settings
+  const webpackPrerenderConfig = Object.assign(makeWebpackConfig({ prerender: true }), {
+    entry: entries
+  });
+  // Set the library target
+  webpackPrerenderConfig.output.libraryTarget = 'commonjs2';
+
+  logger.info('\x1B[1mStarting prerender script\x1B[22m');
+  logger.info('-------------------------');
+  // Create our compiler and run webpack
+  const compiler = webpack(webpackPrerenderConfig);
+  compiler.run((err, stats) => {
+    if (err) { return reject(err); }
+    logger.info('\x1B[1mCompiled components\x1B[22m');
+    logger.info('-------------------');
+    // Grab all the prerendered components from the public directory, if you change the output
+    // for the production webpack config, this will need to read from the appropriate dir
+    Object.keys(stats.compilation.assets).forEach(name => {
+			// name is in format [name].[hash].js, save in assets as just name
+			const key = name.replace(`.${stats.compilation.hash}.js`, '');
+      config.compiledAssets.js[key] = require(path.resolve(`./public/${name}`));
+    });
+
+    logger.info('\x1B[1mSaving components\x1B[22m');
+    logger.info('-----------------');
+    resolve();
+  });
 });
 
 /**
@@ -92,10 +124,9 @@ const prerenderComponents = () => new Promise((resolve, _) => {
 * @summary Compile and pre-render all assets for production
 * @return {Promise}
 */
-const compileProductionAssets = () => Promise.all([
-  compileAssets(),
-  prerenderComponents()
-]);
+const compileProductionAssets = () => {
+  return compileAssets().then(prerenderComponents);
+};
 
 module.exports = {
   compileProductionAssets,
