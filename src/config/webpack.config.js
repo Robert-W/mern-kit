@@ -35,8 +35,8 @@ module.exports = (options = {}) => {
   const rules = [];
   // Add some production specific plugins
   if (process.env.NODE_ENV === 'production') {
-    // Some of these plugin won't work when prerendering since we need to require them in node
-    // Only add ExtractTextPlugin and CommonsChunkPlugin if we're not prerendering
+    // Some of these plugin won't work when server rendering since we need to require them in node
+    // Only add ExtractTextPlugin and CommonsChunkPlugin if we're not server rendering
     if (!prerender) {
       // Add an ExtractTextPlugin for each critical style we want to inline
       criticalStyles.forEach(filename => {
@@ -80,7 +80,7 @@ module.exports = (options = {}) => {
 
   // Add Sass loaders
   const sassLoaders = ['css-loader', 'postcss-loader', 'sass-loader'];
-  // Only add the `style-loader` if not prerendering because it is made for the browser
+  // Only add the `style-loader` if not server rendering because it is made for the browser
   if (!prerender) { sassLoaders.unshift('style-loader'); }
 
   rules.push({

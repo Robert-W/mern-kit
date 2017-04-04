@@ -1,34 +1,34 @@
-Mern-Kit [![Build Status](https://travis-ci.org/Robert-W/mern-kit.svg?branch=master)](https://travis-ci.org/Robert-W/mern-kit)
+Mern-kit [![Build Status](https://travis-ci.org/Robert-W/mern-kit.svg?branch=master)](https://travis-ci.org/Robert-W/mern-kit)
 ========
-mern-kit is designed to be a starter kit which provides everything needed in a full stack application using Mongoose (MongoDB), Express, React, and Node, all running inside a docker container.
+Mern-kit is designed to be a starter kit which provides everything needed in a full stack application using Mongoose (MongoDB), Express, React, and Node, all running inside a docker container. Having a basic understanding of each of these technologies is not a requirement, but would be very helpful.
 
 ## Getting started
-1. Make sure you have the latest version of [Docker](https://www.docker.com/products/docker) installed. Docker for Mac and Windows comes with the latest docker-compose. For linux, you may need to install docker-compose manually.
+1. Install the latest version of [Docker](https://www.docker.com/products/docker). Some systems may need to install docker-compose manually.
 2. Copy `secrets/local.secrets.example` to `secrets/local.secrets` and fill in the appropriate fields.
-3. Run the start command, `docker-compose up`.
+3. Run `docker-compose up`.
 4. Open `localhost:3000`.
-5. (Optional) You can run `docker-compose exec web npm run populate` to populate your mongoose collections with some defaults. Keep in mind, any users populated this way must meet the applications minimum password requirements which are defined in the default environment file, [`src/config/env/default.js`](./src/config/env/default.js).
+5. (Optional) You can run `docker-compose exec web npm run populate` to populate your mongoose collections with some defaults. Keep in mind, any users populated this way must meet the applications minimum password requirements which are defined in the [default environment file](./src/config/env/default.js).
 
 ## Architecture
-The architecture should be fairly straight-forward. There are three main folders, `client`, `server`, and `config`. `config` contains all the main configurations, scripts, environment settings, strategies, and some utilities. `client` contains components, css, tests, webpack.config.js, and a root index.js entry file. `server` contains any server related code and test, such as models, routes, controllers, views, scripts, tests, schemas (for graphql), and anything else needed.  Below is an example of what the base architecture with a `sample` service looks like.
+There are three main folders, `client`, `server`, and `config`. Below is an example of what the base architecture looks like with a sample client folder and sample server folder.
 
 ```
 config
-  |- env
-  |- lib
-  |- scripts
-  |- strategies
-  |- assets.js
-  |- config.js
-  |- utilities.js
+  |- env //- environment specific configurations
+  |- lib //- libraries for this app, including mongoose, express, winston, and passport wrappers
+  |- scripts //- build scripts, database scripts, test scripts
+  |- strategies //- passport strategies
+  |- utils //- various utilities
+  |- assets.js //- patterns for the app to locate all necessary assets
+  |- config.js //- main configuration for build tools and server code
   |- jest.config.js
   |- webpack.config.js
 client
   |- sample
-    |- components
+    |- js
     |- css
-    |- index.js
-    |- build.config.js
+    |- index.js //- main entry point for the sample page/service
+    |- build.config.js //- optional configurations
 server
   |- sample
     |- controllers
@@ -37,7 +37,7 @@ server
     |- scripts
     |- tests
     |- views
-      |- index.pug
+      |- index.pug //- view names need to be unique across the entire application
 ```
 
 ## Commands
@@ -48,7 +48,7 @@ docker-compose [options] [command] [args]
 See [compose reference](https://docs.docker.com/compose/reference/overview/) for a complete list of available options and commands. You can specify which service and commands specific to the service in args. Something like `web npm start` would run `npm start` on the web service.
 
 ### Start
-Start your container and all necessary services. This will install everything it needs the first time but on subsequent builds will just start the services/containers. If you modify the `package.json` or need to rebuild, see 'Re-build' below.
+Start your container and all necessary services. If you modify the `package.json` or need to rebuild, run the Re-build command.
 ```
 docker-compose up
 ```
@@ -71,16 +71,23 @@ If the container is not running
 ```
 docker-compose run web npm test
 ```
-> Note: `exec` in the previous commands runs the provided command in an already running container for the specified service. Example, `docker-compose exec web npm test` runs `npm test` inside the 'web' container. `run` is a one-off command.
+> Note: `exec` in the previous commands runs the provided command in an already running container for the specified service. So `docker-compose exec web npm test` runs `npm test` inside the 'web' container. `run` is a one-off command.
 
 If you need to regenerate jest snapshots
 ```
 docker-compose run web npm run jest -- -u
+-- or --
+docker-compose run web npm test -- -u
 ```
 
 If you want to run eslint
 ```
 docker-compose exec web npm run lint
+```
+
+If you want to run only Mocha
+```
+docker-compose run web npm run mocha
 ```
 
 ### Connect to Mongo
@@ -90,7 +97,7 @@ docker-compose exec mongo mongo
 ```
 
 ### Drop collections
-This command can be used to drop your mongoose collections. It will iterate over all the scripts in the `server/<service>/scripts/` directories. If the scripts have a `dropCollection` export it will be invoked. You can see an example in the [src/server/users/scripts/users.database.js](./src/app/users/script/users.database.js) file.
+This command can be used to drop your mongoose collections. It will iterate over all the scripts in the `server/<service>/scripts/` directories. If the scripts have a `dropCollection` export it will be invoked. You can see an example in the [User database script](./src/app/users/script/users.database.js) file.
 ```
 docker-compose exec web npm run drop
 ```
@@ -101,65 +108,23 @@ This command can be used to populate your mongoose collections. It will iterate 
 docker-compose exec web npm run populate
 ```
 
-## Tooling
-mern-kit has several tools already setup for your convenience. If you would like to change their default configurations, see the sections below.
+## Customization
+There are several configurations you can leverage to increase your productivity or the overall performance of the application. Each one is explained below.
 
-### Webpack
-mern-kit is using Webpack 2 for bundling, asset loading, and hot module replacement (coming soon) in development. Configurations are located in the various environment files.  Common config is in the `src/config/env/default.js` environment file, while development and production configs are in the `src/config/env/development.js` and `src/config/env/production.js` file, respectively. You can also configure aliases and entries inside your service folder.  For example, if you add a service called `sample`, you can add a `build.config.js` file in the client folder and add these options like so:
-```
-//- src/client/sample/build.config.js
-module.exports = {
-  // Add Webpack Config in here
-  webpack: {
-    alias: {
-      sample: 'client/sample'
-    },
-    entry: {
-      sample: 'client/sample/index.js'
-    }
-  }
-};
-```
+### Environments
+There are four different environment files setup under `config/env`. The [config file](./src/config/config.js) loads the default env file and another that matches your NODE_ENV and merges them together. So if NODE_ENV is development, config will merge `config/env/default.js` and `config/env/development.js`. You can setup your own environments by adding an environment file and setting NODE_ENV to that environment (if you set your environment to `staging` and don't add a `staging.js` environment file, it will throw an error saying it could not find a configuration file matching your NODE_ENV. You **MUST** add an environment file to match your NODE_ENV). Environment configs contain the following:
+* Mongo connection information
+* Password requirements
+* Webpack config
+* Authentication strategies
+* Default variables and locals
+* anything else you want to add
 
-View the user's service for an example or see Client Build Config below.
+### Client Config
+> Performance should never be an after thought, it is recommended for every page to setup a `criticalStyle` for above the fold content and a `prerender` component. Server rendering does compilation ahead of time so this application does not need babel/register or babel-node for production :).
 
-### CSS - SCSS
-mern-kit uses a scss loader so you can import scss files. It also has postcss loader setup with a loader options plugin that adds the autoprefixer. Feel free to add more configurations as necessary to the webpack config in the environment files (`src/config/env`). You can import a scss file like so:
-```
-//- This assumes you configured a 'users' alias
-import 'users/css/app.scss';
+Each client folder can contain a custom build configuration file for setting up webpack aliases, webpack entries, server rendering, and inlining css into html files. All are optional and are defined in a `build.config.js` with the following format:
 
-//- You could also use relative paths
-import '../css/app.scss';
-```
-
-### ES6 - Babel
-mern-kit uses babel with the following presets and plugins, but you can always add more to the `.babelrc` if wanted.
-```
-{
-  "presets": ["react", "es2015", "stage-0"],
-  "plugins": ["transform-runtime"]
-}
-```
-
-It is set to apply this loader to all `.js` files, but if you would like to support `.jsx` files as well, just update the loader configuration for the webpack settings in `src/config/env/default.js`.
-
-### Jest(with Enzyme) and Mocha
-mern-kit will use globs to find all test files in each service directory. This way you can write tests for your specific service and let mern-kit worry about finding them and running them. For example, if you have a service called `sample`, you could add tests like so:
-```
-|- client
-  |- sample
-    |- tests // For component testing
-      |- sample.component.test.js
-|- server
-  |- sample
-    |- tests
-      |- sample.model.test.js
-      |- sample.controller.test.js
-```
-
-### Client Build Config
-In each client service folder, you can provide some custom build configurations via a `build.config.js`. All are optional and they have the following format:
 ```javascript
 module.exports = {
   webpack: {
@@ -172,10 +137,9 @@ module.exports = {
   },
   build: {
     criticalStyle: String, // Ex. login/css/critical.scss
-    // prerender should use the same format as entry, but use a relative path
-    //  for the key instead of a filename
+    // prerender should use the same format as entry
     prerender: {
-      [key:String]: String // Ex. './public/components': 'login/components/Login.js'
+      [key:String]: String // Ex. 'login-component': 'login/components/Login.js'
     }
   }
 };
@@ -185,10 +149,10 @@ module.exports = {
 Configure an alias so you do not need to load modules with a relative path. This is expecially useful when sharing components across services.
 
 #### entry
-Add an entry to webpack config. This will save the file path of the asset with the hash to `config.compiledAssets.js.[name].[hash].js`. You can add this to your server controllers so they get loaded in your pug templates. See [`src/server/users/controllers/login.controller.js`](./src/server/users/controllers/login.controller.js) for an example. You should also load the common module as well.
+Add an entry for your webpack.config. The path to the compiled asset is stored in the [config file](./src/config/config.js) as `config.compiledAssets.js[name]`. You can add this to your server controllers so they get loaded in your pug templates. See the [login controller](./src/server/users/controllers/login.controller.js) for an example. Mern-kit does use the CommonsChunkPlugin so don't forgot to load the common chunk as well(config.compiledAssets.js.common).
 
 #### criticalStyle
-Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It will then save this in `config.compiledAssets.css.[criticalStyle]` so you can then inject this into your pug template to prevent the flash of un-styled content. Below is an example of the four steps necessary to use this feature(I am playing with ways to abstract this further):
+Add the path to a style sheet that contains your applications critical styles (css necessary to render above the fold content). The critical css needs to be imported into your JS code so ExtractTextPlugin can pull it out and apply all the transformations to it. It's also saved in the [config file](./src/config/config.js) as `config.compiledAssets.css[criticalStyle]`. You can then inject this into your pug template to prevent the flash of un-styled content when doing server rendering. Below is a walkthrough of how to set it up.
 ```javascript
 // 1. Import the scss file you want in your component
 // App.js
@@ -219,7 +183,7 @@ block head
 ```
 
 #### prerender
-If you are going to prerender, it is recommended that you also inject some styles with the above `criticalStyle` configuration to prevent the flash of unstyled content. The prerender option works by compiling the configured components ahead of time and saving the required component in `config.compiledAssets.js` so you can access it throughout the codebase. You can then render to string and pass the markup to a pug template very easily. For example:
+If you are going to use server rendering, it is recommended that you also inject some styles with the above `criticalStyle` configuration. The `prerender` option works by compiling the configured components ahead of time and saving the required component in `config.compiledAssets.js[prerender]`. You can then render it to a string and pass the markup to a pug template. Here is a walkthrough of how to set this up.
 ```javascript
 // 1. In your build.config.js, add your component with a unique name (name must be unique)
 module.exports = {
@@ -229,14 +193,14 @@ module.exports = {
     }
   }
 }
-// 2. Render to String and add to your locals in the router
+// 2. In your route controller on the server side render your component to a string and add it to your locals
 const ReactDOMServer = require('react-dom/server');
 const React = require('react');
 // At the login route
 exports.login = (req, res) => {
   // Default is the default export and is a function, you can pass props in here
-  // You may want to wrap this in a if process.env.NODE_ENV is production since components
-  // are not prerendered in development mode. Or just null check on compiledAssets :)
+  // You may want to wrap this in a null check since components are not server rendered in dev mode
+  // See src/server/users/controllers/login.controller.js for an example
   const element = React.createElement(compiledAssets.js['login-component'].default);
   res.render('login', {
     markup: ReactDOMServer.renderToString(element),
@@ -247,9 +211,24 @@ extends ../../core/views/layout.pug
 block head
   script(src=common)
 block content
-  div#mount // Add the markup inside whichever comopnent you are mounting to
+  div#mount // Add the markup inside whichever component you are mounting to
     != markup
 ```
+
+### Webpack Config
+There are a couple different places to add webpack configurations. The [`src/config/webpack.config.js`](./src/config/webpack.config.js) exports a function that you can use to generate a webpack config. The config file will include whatever webpack config you specify in your environment file and then add any extras from all of the build.config.js files in the client folders.
+
+### Testing Config
+Server side testing uses Mocha while client side testing uses Jest + Enzyme. Testing will use globs configured in the assets.js file to find all tests to execute.
+
+#### Mocha
+Mocha does not have many configurations, but since testing is done in Docker you can test your mongoose models, your apis, controllers, etc. The configuration for Mocha is in the [mocha test script](./src/config/scripts/mocha.js) which test's every file found by the following pattern, `server/*/tests/**/*.js`. To run your Mocha tests, see [Test](#test).
+
+#### Jest
+There is a [`jest.config.json`](./src/config/jest.config.json) file you can use to add some Jest configurations. Since you have the option to configure aliases for webpack, the `src/config/scripts/prepare-jest.js` will generate a moduleNameMapper based on those aliases and will generate the testMatch with the pattern `<rootDir>/client/*/tests/**/*.js`. To run your Jest tests or update the snapshots, see [Test](#test).
+
+### Other
+Mern-kit uses `.babelrc` and `.eslintrc` for those services.  Feel free to edit as you wish to add/remove features or change the linting rules.
 
 ## Contributing
 Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.
@@ -258,7 +237,7 @@ Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributin
 If you have questions specific to Docker, Mongo, Node, React, Webpack, or Redux. Consider posting your question on Stack Overflow, they have a lot of support already available for those topics. If you have questions on how any of those are used in this repo, don't hesitate to ask in the issues section. If you think you are experiencing a bug, please copy the [ISSUE_TEMPLATE.md](./ISSUE_TEMPLATE.md) and create an issue.
 
 ## Docker Tips
-Docker can take up some space quickly, and when errors happen, you sometimes get stuck with intermediate containers not being destroyed. Here are a couple of commands to help you see whats going on and clean up your local machine.
+Docker can take up some space quickly, and when errors happen, you sometimes get stuck with intermediate containers not being destroyed. Here are a couple of commands to help you see whats going on and clean up your machine.
 
 ### Inspecting
 - **View running containers** - `docker ps` or `docker-compose ps`
@@ -287,4 +266,4 @@ Docker can take up some space quickly, and when errors happen, you sometimes get
 - [Enzyme](http://airbnb.io/enzyme/)
 
 ## License
-Mern-Kit is [MIT licensed](./LICENSE)
+Mern-kit is [MIT licensed](./LICENSE)
