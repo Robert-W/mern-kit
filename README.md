@@ -230,12 +230,6 @@ There is a [`jest.config.json`](./src/config/jest.config.json) file you can use 
 ### Other
 Mern-kit uses `.babelrc` and `.eslintrc` for those services.  Feel free to edit as you wish to add/remove features or change the linting rules.
 
-## Contributing
-Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.
-
-## Troubleshooting
-If you have questions specific to Docker, Mongo, Node, React, Webpack, or Redux. Consider posting your question on Stack Overflow, they have a lot of support already available for those topics. If you have questions on how any of those are used in this repo, don't hesitate to ask in the issues section. If you think you are experiencing a bug, please copy the [ISSUE_TEMPLATE.md](./ISSUE_TEMPLATE.md) and create an issue.
-
 ## Docker Tips
 Docker can take up some space quickly, and when errors happen, you sometimes get stuck with intermediate containers not being destroyed. Here are a couple of commands to help you see whats going on and clean up your machine.
 
@@ -253,17 +247,11 @@ Docker can take up some space quickly, and when errors happen, you sometimes get
 - **Remove all hanging images** - `docker rmi $(docker images -q -f "dangling=true")`
 - **Remove all hanging volumes** - `docker volume rm $(docker volume ls -qf "dangling=true")`
 
-## Resources
-- [React](https://facebook.github.io/react/)
-- [Redux](http://redux.js.org/)
-- [Mongo](https://www.mongodb.com/)
-- [Docker](https://www.docker.com/)
-- [Webpack](https://webpack.js.org/)
-- [Express](http://expressjs.com/)
-- [Mongoose](http://mongoosejs.com/)
-- [Jest](https://facebook.github.io/jest/)
-- [Mocha](https://mochajs.org/)
-- [Enzyme](http://airbnb.io/enzyme/)
+## Contributing
+Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) if interested in contributing.
+
+## Troubleshooting
+If you have questions specific to Docker, Mongo, Node, React, Webpack, or Redux. Consider posting your question on Stack Overflow, they have a lot of support already available for those topics. If you have questions on how any of those are used in this repo, don't hesitate to ask in the issues section. If you think you are experiencing a bug, please copy the [ISSUE_TEMPLATE.md](./ISSUE_TEMPLATE.md) and create an issue.
 
 ## License
 Mern-kit is [MIT licensed](./LICENSE)
