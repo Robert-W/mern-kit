@@ -90,7 +90,9 @@ module.exports = (options = {}) => {
   });
 
   // Merge in the preconfigured webpack plugins
-  const allPlugins = plugins.concat(config.webpack.plugins);
+  const allPlugins = config.webpack && config.webpack.plugins
+    ? plugins.concat(config.webpack.plugins)
+    : plugins;
 
   return Object.assign({}, config.webpack, {
     plugins: allPlugins,
