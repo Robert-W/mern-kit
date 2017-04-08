@@ -1,23 +1,20 @@
 version: '3'
 
 services:
-  web:
+  mern:
     depends_on:
       - mongo
     build:
-      context: src
+      context: mern
       dockerfile: Dockerfile
     env_file: secrets/local.secrets
     environment:
       NODE_ENV: development
     ports:
-      # Expose [HOST:CONTAINER]
       - "3000:3000"
     volumes:
-      - ./src/client:/srv/src/client
-      - ./src/server:/srv/src/server
-      - ./src/config:/srv/src/config
-      - ./src/server.js:/srv/src/server.js
+      - ./mern/packages:/srv/src/packages
+      - ./mern/scripts:/srv/src/scripts
     links:
       - mongo
   mongo:

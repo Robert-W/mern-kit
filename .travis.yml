@@ -14,4 +14,4 @@ before_script:
   - echo "MONGO_ADMIN_USERNAME=TESTER" > secrets/local.secrets
   - echo "MONGO_ADMIN_PASSWORD=asdfghk" >> secrets/local.secrets
 script:
-  - sudo docker-compose run web npm test
+  - sudo docker-compose run mern npm test
