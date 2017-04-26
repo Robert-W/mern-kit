@@ -9,6 +9,9 @@ Mern-kit is designed to be a starter kit which provides everything needed in a f
 4. Open `localhost:3000`.
 5. (Optional) You can run `docker-compose exec mern npm run populate` to populate your mongoose collections with some defaults. Keep in mind, any users populated this way must meet the applications minimum password requirements which are defined in the [default environment file](./mern/packages/env/default.js).
 
+## Production
+Running this with NODE_ENV set to 'production' will enable a couple of optimizations for you. It enables the [criticalStyle](#criticalStyle) and [prerender](#prerender) options, and also runs without Nodemon. For the prerender, it compiles your components ahead of time and saves them in the `config.compiledAssets` object. This negates the need for babel-node or babel/register entirely. You still need to call `renderToString` in the server controller, but this allows you to add props to it before rendering and passing it to the client affording you some flexibility.
+
 ## Architecture
 The `docker-compose.yml` will spin up two containers, one for mongo and one for mern. The mern service has the following architecture (sample client and server package included):
 ```shell
@@ -125,7 +128,7 @@ There are four different environment files setup under `packages/env`. The [conf
 * anything else you want to add
 
 ### Client Config
-> Performance should never be an after thought, it is recommended for every page to setup a `criticalStyle` for above the fold content and a `prerender` component. Server rendering does compilation ahead of time so this application does not need babel/register or babel-node for production :).
+> Performance should never be an after thought, it is recommended for every page to setup a `criticalStyle` for above the fold content and a `prerender` component.
 
 Each client folder can contain a custom build configuration file for setting up webpack aliases, webpack entries, server rendering, and inlining css into html files. All are optional and are defined in a `build.config.js` with the following format:
 
