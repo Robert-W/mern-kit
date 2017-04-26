@@ -10,7 +10,7 @@ Mern-kit is designed to be a starter kit which provides everything needed in a f
 5. (Optional) You can run `docker-compose exec mern npm run populate` to populate your mongoose collections with some defaults. Keep in mind, any users populated this way must meet the applications minimum password requirements which are defined in the [default environment file](./mern/packages/env/default.js).
 
 ## Production
-Running this with NODE_ENV set to 'production' will enable a couple of optimizations for you. It enables the [criticalStyle](#criticalStyle) and [prerender](#prerender) options, and also runs without Nodemon. For the prerender, it compiles your components ahead of time and saves them in the `config.compiledAssets` object. This negates the need for babel-node or babel/register entirely. You still need to call `renderToString` in the server controller, but this allows you to add props to it before rendering and passing it to the client affording you some flexibility.
+Running this with NODE_ENV set to 'production' will enable the [criticalStyle](#criticalstyle) and [prerender](#prerender) options, and it also runs without Nodemon. For the server rendering, it compiles your components ahead of time and saves them in the `config.compiledAssets` object. This negates the need for babel-node or babel/register entirely. You still need to call `renderToString` in the server controller, but this allows you to add props before rendering, giving you more flexibility.
 
 ## Architecture
 The `docker-compose.yml` will spin up two containers, one for mongo and one for mern. The mern service has the following architecture (sample client and server package included):
