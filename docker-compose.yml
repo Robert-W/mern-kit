@@ -17,6 +17,7 @@ services:
       - ./mern/scripts:/srv/src/scripts
     links:
       - mongo
+    command: npm run nodemon
   mongo:
     image: mongo:3.4.2
     ports:

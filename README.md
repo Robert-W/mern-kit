@@ -45,7 +45,7 @@ The `docker-compose.yml` will spin up two containers, one for mongo and one for 
 > See [Client Config](#client-config) for supported configurations
 
 ### Absolute Paths
-This repo uses absolute paths for all modules in the `packages` folder. This is done by setting NODE_PATH to the `packages` directory inside the docker container. This negates the need to use relative path's throughout the project. For example, instead of using `require('../../utils/webpack.utils')`, you can just use `require('utils/webpack.utils')`.
+This repo uses absolute paths for all modules in the `packages` folder. This is done by setting NODE_PATH to the `packages` directory inside the docker container. This allows you to use `require('utils/webpack.utils')` instead of `require('../../utils/webpack.utils')`.
 
 ## Commands
 Docker commands generally follow this syntax:
