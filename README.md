@@ -12,6 +12,15 @@ Mern-kit is designed to be a starter kit which provides everything needed in a f
 ## Production
 Running this with NODE_ENV set to 'production' will enable the [criticalStyle](#criticalstyle) and [prerender](#prerender) options, and it also runs without Nodemon. For the server rendering, it compiles your components ahead of time and saves them in the `config.compiledAssets` object. This negates the need for babel-node or babel/register entirely. You still need to call `renderToString` in the server controller, but this allows you to add props before rendering, giving you more flexibility.
 
+The `Dockerfile` will run the production start command while `docker-compose.yml` will override this for development with the nodemon command. For production, you should not run `mongo` in a Docker container, your better off connecting to a mongo instance in AWS or some other cloud solution.  The connection strings are in environment variables. There are many docker deployment tools out there and it will be worth learning one that will deploy to your target infrastructure (like AWS or Compute Engine). This topic is beyond the scope of this repository but you can read up more on this with the following links:
+
+* [Kubernetes](https://kubernetes.io/)
+* [Docker for AWS](https://www.docker.com/aws)
+* [Compute Engine](https://cloud.google.com/compute/docs/instance-groups/deploying-docker-containers)
+
+### Testing Production Mode
+You can test production mode by removing the `command` and changing the `NODE_ENV` to `production` in the `docker-compose.yml`. There are comments in the `docker-compose.yml` about this.
+
 ## Architecture
 The `docker-compose.yml` will spin up two containers, one for mongo and one for mern. The mern service has the following architecture (sample client and server package included):
 ```shell
