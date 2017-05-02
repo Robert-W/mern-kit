@@ -15,7 +15,7 @@ module.exports = {
   },
 
   mongo: {
-    db: 'mongodb://mongo/docker-mern',
+    db: `mongodb://${process.env.MONGO_HOSTNAME}/${process.env.MONGO_DATABASE}`,
     admin: {
       username: process.env.MONGO_ADMIN_USERNAME,
       password: process.env.MONGO_ADMIN_PASSWORD

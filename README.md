@@ -9,6 +9,18 @@ Mern-kit is designed to be a starter kit which provides everything needed in a f
 4. Open `localhost:3000`.
 5. (Optional) You can run `docker-compose exec mern npm run populate` to populate your mongoose collections with some defaults. Keep in mind, any users populated this way must meet the applications minimum password requirements which are defined in the [default environment file](./mern/packages/env/default.js).
 
+## Production
+Running this with NODE_ENV set to 'production' will enable the [criticalStyle](#criticalstyle) and [prerender](#prerender) options, and it also runs without Nodemon. For the server rendering, it compiles your components ahead of time and saves them in the `config.compiledAssets` object. This negates the need for babel-node or babel/register entirely. You still need to call `renderToString` in the server controller, but this allows you to add props before rendering, giving you more flexibility.
+
+The `Dockerfile` will run the production start command while `docker-compose.yml` will override this for development with the nodemon command. For production, you should not run `mongo` in a Docker container, your better off connecting to a mongo instance in AWS or some other cloud solution.  The connection strings are in environment variables. There are many docker deployment tools out there and it will be worth learning one that will deploy to your target infrastructure (like AWS or Compute Engine). This topic is beyond the scope of this repository but you can read up more on this with the following links:
+
+* [Kubernetes](https://kubernetes.io/)
+* [Docker for AWS](https://www.docker.com/aws)
+* [Compute Engine](https://cloud.google.com/compute/docs/instance-groups/deploying-docker-containers)
+
+### Testing Production Mode
+You can test production mode by removing the `command` and changing the `NODE_ENV` to `production` in the `docker-compose.yml`. There are comments in the `docker-compose.yml` about this.
+
 ## Architecture
 The `docker-compose.yml` will spin up two containers, one for mongo and one for mern. The mern service has the following architecture (sample client and server package included):
 ```shell
@@ -42,7 +54,7 @@ The `docker-compose.yml` will spin up two containers, one for mongo and one for 
 > See [Client Config](#client-config) for supported configurations
 
 ### Absolute Paths
-This repo uses absolute paths for all modules in the `packages` folder. This is done by setting NODE_PATH to the `packages` directory inside the docker container. This negates the need to use relative path's throughout the project. For example, instead of using `require('../../utils/webpack.utils')`, you can just use `require('utils/webpack.utils')`.
+This repo uses absolute paths for all modules in the `packages` folder. This is done by setting NODE_PATH to the `packages` directory inside the docker container. This allows you to use `require('utils/webpack.utils')` instead of `require('../../utils/webpack.utils')`.
 
 ## Commands
 Docker commands generally follow this syntax:
@@ -125,7 +137,7 @@ There are four different environment files setup under `packages/env`. The [conf
 * anything else you want to add
 
 ### Client Config
-> Performance should never be an after thought, it is recommended for every page to setup a `criticalStyle` for above the fold content and a `prerender` component. Server rendering does compilation ahead of time so this application does not need babel/register or babel-node for production :).
+> Performance should never be an after thought, it is recommended for every page to setup a `criticalStyle` for above the fold content and a `prerender` component.
 
 Each client folder can contain a custom build configuration file for setting up webpack aliases, webpack entries, server rendering, and inlining css into html files. All are optional and are defined in a `build.config.js` with the following format:
 

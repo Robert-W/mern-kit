@@ -155,20 +155,6 @@ const configureErrorRoutes = app => {
 };
 
 /**
-* @function generateProductionAssets
-* @summary Generate production assets that routes will need to know about to serve js, and css
-* @return {Promise}
-*/
-const generateProductionAssets = () => new Promise((resolve, reject) => {
-  // Middleware takes care of this in development, only need to run this for production
-  if (process.env.NODE_ENV !== 'production') {
-    resolve();
-  } else {
-    webpackUtils.compileProductionAssets().then(resolve, reject);
-  }
-});
-
-/**
 * @name initialize
 * @static
 * @summary Initialize express
@@ -197,13 +183,8 @@ module.exports.initialize = connection => new Promise((resolve, reject) => {
     configureServerRoutes(app);
     // Configure the error routes
     configureErrorRoutes(app);
-    // Generate production assets if necessary
-    generateProductionAssets().then(() => {
-      resolve(app);
-    }, err => {
-      logger.error('Error compiling production assets', err);
-      reject(err);
-    });
+    // resolve the app
+    resolve(app);
   } catch (err) {
     logger.error('Error initializing express', err);
     reject(err);
