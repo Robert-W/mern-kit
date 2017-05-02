@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     env_file: secrets/local.secrets
     environment:
-      NODE_ENV: development,
+      NODE_ENV: development
       MONGO_HOSTNAME: mongo
       MONGO_DATABASE: docker-mern
     ports:
