@@ -1,3 +1,4 @@
+const webpackUtils = require('utils/webpack.utils');
 const mongoose = require('lib/mongoose');
 const config = require('config/config');
 const express = require('lib/express');
@@ -5,7 +6,10 @@ const logger = require('lib/winston');
 
 logger.info('Starting the application');
 
-mongoose.connect()
+webpackUtils.compileAssets()
+.then(() => {
+  return mongoose.connect();
+})
 .then(connection => {
   return express.initialize(connection);
 })

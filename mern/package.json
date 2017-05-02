@@ -4,7 +4,8 @@
   "description": "Sample boilerplate for a MERN stack running inside a docker container.",
   "main": "Dockerfile",
   "scripts": {
-    "start": "node scripts/start",
+    "start": "node packages/server/server",
+    "nodemon": "node scripts/nodemon.js",
     "populate": "node scripts/populate",
     "drop": "node scripts/drop",
     "test": "set -e; npm run lint; npm run mocha; npm run jest",

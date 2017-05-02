@@ -47,11 +47,11 @@ const middleware = () => {
 };
 
 /**
-* @name compileAssets
+* @name createProductionBundles
 * @summary Compile our javascript assets for production
 * @return {Promise}
 */
-const compileAssets = () => new Promise((resolve, reject) => {
+const createProductionBundles = () => new Promise((resolve, reject) => {
   const compiler = webpack(makeWebpackConfig());
   // Apply the progress plugin
   compiler.apply(new webpack.ProgressPlugin((percent, message) => {
@@ -120,15 +120,20 @@ const prerenderComponents = () => new Promise((resolve, reject) => {
 });
 
 /**
-* @name compileProductionAssets
+* @name compileAssets
 * @summary Compile and pre-render all assets for production
 * @return {Promise}
 */
-const compileProductionAssets = () => {
-  return compileAssets().then(prerenderComponents);
-};
+const compileAssets = () => new Promise((resolve, reject) => {
+  // If we are not in production, just resolve immediately
+  if (process.env.NODE_ENV !== 'production') { return resolve(); }
+  createProductionBundles()
+    .then(() => prerenderComponents())
+    .then(resolve)
+    .catch(reject);
+});
 
 module.exports = {
-  compileProductionAssets,
+  compileAssets,
   middleware
 };
