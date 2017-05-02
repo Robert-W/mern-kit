@@ -1,4 +1,4 @@
-const controller = require('server/users/controllers/login.controller');
+const controller = require('server/login/controllers/login.controller');
 
 /**
 * @name exports
