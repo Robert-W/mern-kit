@@ -12,7 +12,9 @@
     "modules": true,
     "jsx": true
   },
-  "globals": {},
+  "globals": {
+    "app": true
+  },
   "plugins": [
     "react"
   ],
