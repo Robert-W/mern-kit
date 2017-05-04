@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import React, {Component} from 'react';
 
-const Menu = (props) => {
+const Menu = props => {
   const iconButton = <IconButton><MoreIcon color='#FFF' /></IconButton>;
   const { links = {}} = props;
 
@@ -28,7 +28,7 @@ export default class Header extends Component {
         title='Mern-Kit'
         className='app__header'
         showMenuIconButton={false}
-        iconElementRight={!links ? null : <Menu {...this.props} />} />
+        iconElementRight={links ? <Menu {...this.props} /> : null} />
     );
   }
 }
