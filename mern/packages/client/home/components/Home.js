@@ -11,7 +11,7 @@ export default class Home extends Component {
   render () {
     return (
       <Page links={pageOptions.links}>
-        <div>Hello from the Home Page</div>
+
       </Page>
     );
   }

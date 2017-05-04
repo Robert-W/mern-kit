@@ -96,8 +96,6 @@ UserSchema.statics.makeCopy = function makeCopy (user) {
     firstName: user.firstName,
     lastName: user.lastName,
     username: user.username,
-    created: user.created,
-    updated: user.updated,
     email: user.email
   };
 };
