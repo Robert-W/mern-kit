@@ -33,9 +33,10 @@ describe('NextSteps Component Test', () => {
     const state = store.getState();
     const wrapper = mount(<Home><NextSteps {...state} /></Home>);
     const component = wrapper.find(NextSteps).node;
-    const steps = wrapper.find(Step);
     // Change the step and verify things have updated
     component.setActiveStep(mockEvent);
+    // This should have triggered an action/reducer/store update and passed in new props
+    const steps = wrapper.find(Step);
     const {props} = steps.nodes[1];
     expect(props.active).toBeTruthy();
     expect(props.completed).toBeTruthy();
@@ -46,7 +47,7 @@ describe('NextSteps Component Test', () => {
     const component = wrapper.find(NextSteps).node;
     const steps = wrapper.find(Step);
     component.resetStepper();
-    // Check the properties
+    // Check the properties and make sure the whole Redux workflow worked correctly
     expect(component.props).toEqual({ stepper: defaultState.stepper });
     steps.nodes.forEach(step => {
       expect(step.props.active).toBeFalsy();
