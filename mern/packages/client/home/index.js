@@ -4,4 +4,4 @@ import React from 'react';
 
 import 'home/css/home.scss';
 
-render(<Home />, document.getElementById('mount'));
+render(<Home user={app.user} />, document.getElementById('mount'));
