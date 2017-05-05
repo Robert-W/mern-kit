@@ -15,7 +15,8 @@ export default class NextSteps extends Component {
   };
 
   render () {
-    const {step, completed} = this.props.stepper;
+    const {stepper = {}} = this.props;
+    const {step, completed = []} = stepper;
 
     return (
       <div className='home__next-steps inner'>
