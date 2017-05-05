@@ -1,7 +1,8 @@
 import {changeStep} from 'home/actions/stepperActions';
+import renderer from 'react-test-renderer';
 import Home from 'home/components/Home';
-import {shallow, mount} from 'enzyme';
 import store from 'home/store';
+import {mount} from 'enzyme';
 import React from 'react';
 
 describe('Home Component Test', () => {
@@ -12,6 +13,8 @@ describe('Home Component Test', () => {
   });
 
   test('Home component should receive updated state after an action is dispatched', () => {
+		// Mock our console and make sure it's called by our store's middleware
+    global.console = { log: jest.fn() };
     const wrapper = mount(<Home />);
     const expected = ['1'];
     const newStepId = '1';
@@ -21,11 +24,13 @@ describe('Home Component Test', () => {
     const {stepper} = wrapper.state();
     expect(stepper.step).toEqual(newStepId);
     expect(stepper.completed).toEqual(expect.arrayContaining(expected));
+    expect(console.log).toHaveBeenCalledTimes(2);
   });
 
   test('Rendering the Home component with a user should render a welcome message', () => {
     const defaultUser = { firstName: 'Mr.', lastName: 'Johnson' };
-    shallow(<Home user={defaultUser} />);
+    const tree = renderer.create(<Home user={defaultUser} />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 
 });

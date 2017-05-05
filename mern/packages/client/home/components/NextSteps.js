@@ -22,19 +22,13 @@ export default class NextSteps extends Component {
       <div className='home__next-steps inner'>
         <Stepper linear={false}>
           <Step completed={completed.indexOf('0') !== -1} active={step === '0'}>
-            <StepButton data-id='0' onClick={this.setActiveStep}>
-              Learn React
-            </StepButton>
+            <StepButton data-id='0' onClick={this.setActiveStep}>Learn React</StepButton>
           </Step>
           <Step completed={completed.indexOf('1') !== -1} active={step === '1'}>
-            <StepButton data-id='1' onClick={this.setActiveStep}>
-              Learn Node
-            </StepButton>
+            <StepButton data-id='1' onClick={this.setActiveStep}>Learn Node</StepButton>
           </Step>
           <Step completed={completed.indexOf('2') !== -1} active={step === '2'}>
-            <StepButton data-id='2' onClick={this.setActiveStep}>
-              Learn Docker
-            </StepButton>
+            <StepButton data-id='2' onClick={this.setActiveStep}>Learn Docker</StepButton>
           </Step>
         </Stepper>
       </div>

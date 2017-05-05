@@ -1,22 +1,18 @@
+import {defaultState} from 'home/config';
 import {
   STEPPER_RESET,
   STEPPER_CHANGE_STEP
 } from 'home/constants/stepperConstants';
 
-const defaultState = {
-  completed: [],
-  step: undefined
-};
-
-export default function stepperReducer (state = defaultState, action) {
+export default function stepperReducer (state = defaultState.stepper, action) {
   let completed;
   switch (action.type) {
     case STEPPER_RESET:
-      return defaultState;
+      return Object.assign({}, defaultState.stepper);
     case STEPPER_CHANGE_STEP:
       completed = state.completed.slice();
       if (completed.indexOf(action.payload) === -1) { completed.push(action.payload); }
-      return Object.assign(state, {
+      return Object.assign({}, {
         step: action.payload,
         completed
       });
