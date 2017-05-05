@@ -1,4 +1,4 @@
-import {changeStep} from 'home/actions/stepperActions';
+import {changeStep, resetStepper} from 'home/actions/stepperActions';
 import {Step, Stepper, StepButton} from 'material-ui/Stepper';
 import React, {Component} from 'react';
 import store from 'home/store';
@@ -8,6 +8,10 @@ export default class NextSteps extends Component {
   setActiveStep = ({ currentTarget }) => {
     const stepId = currentTarget.dataset.id;
     store.dispatch(changeStep(stepId));
+  };
+
+  resetStepper = () => {
+    store.dispatch(resetStepper());
   };
 
   render () {
