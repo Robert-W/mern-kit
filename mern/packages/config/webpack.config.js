@@ -1,5 +1,6 @@
 const CompilationCallbackPlugin = require('utils/CompilationCallbackPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const definePluginEnv = require('./webpack.env');
 const config = require('config/config');
 const webpack = require('webpack');
 const path = require('path');
@@ -88,6 +89,9 @@ module.exports = (options = {}) => {
     loaders: sassLoaders,
     exclude: excludes
   });
+
+  // Add some variables to webpack
+  plugins.push(new webpack.DefinePlugin(definePluginEnv()));
 
   // Merge in the preconfigured webpack plugins
   const allPlugins = config.webpack && config.webpack.plugins

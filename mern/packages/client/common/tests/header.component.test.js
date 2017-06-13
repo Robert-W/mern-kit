@@ -23,11 +23,30 @@ describe('Header snapshot Tests', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('Should render a simple header with a link in it', () => {
-    const props = { links: { logout: true }};
+  test('Should render a simple header with a menu but no login link in it', () => {
     const header = renderer.create(
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <Header {...props} />
+        <Header links={{}} />
+      </MuiThemeProvider>
+    );
+    const tree = header.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  test('Should render a simple header with a link when logout is true', () => {
+    const header = renderer.create(
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <Header links={{ logout: true }} />
+      </MuiThemeProvider>
+    );
+    const tree = header.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  test('Should render a simple header without a link when logout is false', () => {
+    const header = renderer.create(
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+        <Header links={{ logout: false }} />
       </MuiThemeProvider>
     );
     const tree = header.toJSON();

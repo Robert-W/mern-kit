@@ -26,6 +26,18 @@ describe('Login Component Test', () => {
     expect(component.state('dialogOpen')).toBeTruthy();
   });
 
+  test('Should show the modal with the correct content when showDialog is called', () => {
+    const component = shallow(<Login />);
+    const title = 'Some title';
+    const message = 'Some message';
+
+    expect(component.state('dialogOpen')).toBeFalsy();
+    component.instance().showDialog(title, message);
+    expect(component.state('dialogOpen')).toBeTruthy();
+    expect(component.state('dialogTitle')).toMatch(title);
+    expect(component.state('dialogMessage')).toMatch(message);
+  });
+
   test('Should close the modal when closeDialog is called', () => {
     const component = shallow(<Login />);
     component.find({ label: 'Sign Up' }).simulate('touchTap');
@@ -45,6 +57,15 @@ describe('Login Component Test', () => {
     expect(component.state('dialogMessage')).toMatch('Bad Request');
   });
 
+  test('Should handle a request error and show the default message in the dialog if no message provided', async () => {
+    const component = mount(<Login />);
+    // Mock out the request module to reject the request
+    request.default = () => new Promise((_, reject) => reject());
+    await component.instance().signIn();
+    expect(component.state('dialogOpen')).toBeTruthy();
+    expect(component.state('dialogMessage')).toMatch('Unknown error');
+  });
+
   test('Should handle a failed login attempt and show the correct message in the dialog', async () => {
     const component = mount(<Login />);
     const error = new Error('Invalid username/password');
@@ -53,6 +74,15 @@ describe('Login Component Test', () => {
     await component.instance().signIn();
     expect(component.state('dialogOpen')).toBeTruthy();
     expect(component.state('dialogMessage')).toMatch('Invalid username/password');
+  });
+
+  test('Should handle a failed login attempt and show the default message in the dialog if no message provided', async () => {
+    const component = mount(<Login />);
+    // Mock out the request to resolve with an error
+    request.default = () => new Promise((resolve, _) => resolve({ status: 'error' }));
+    await component.instance().signIn();
+    expect(component.state('dialogOpen')).toBeTruthy();
+    expect(component.state('dialogMessage')).toMatch('Unknown error');
   });
 
   test('Should redirect after a successful login attempt', async () => {

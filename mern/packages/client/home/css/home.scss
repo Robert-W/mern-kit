@@ -1,2 +1,22 @@
 // Import base css
 @import '../../common/css/_base';
+
+.home__welcome-banner {
+  text-align: center;
+}
+
+.home__stepper-content,
+.home__stepper-actions {
+  justify-content: center;
+  margin: 15px 30px;
+  display: flex;
+}
+
+.home__stepper-content {
+  font-size: 18px;
+}
+
+.home__stepper-actions > div {
+  margin-right: 10px;
+  margin-left: 10px;
+}
