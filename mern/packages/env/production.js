@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const path = require('path');
 
@@ -38,11 +37,6 @@ module.exports = {
         output: {
           comments: false,
           screw_ie8: true
-        }
-      }),
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          postcss: [autoprefixer]
         }
       })
     ]

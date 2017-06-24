@@ -3,7 +3,6 @@
 * @static
 * @summary Development environment configurations
 */
-const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const path = require('path');
 
@@ -28,12 +27,7 @@ module.exports = {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          postcss: [autoprefixer]
-        }
-      })
+      new webpack.NoEmitOnErrorsPlugin()
     ]
   }
 };

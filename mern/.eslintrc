@@ -20,7 +20,6 @@
   ],
   "extends": "eslint:recommended",
   "rules": {
-    "quotes": [2, "single", "avoid-escape"],
     "react/jsx-uses-react": 2,
     "react/display-name": 2,
     "react/jsx-no-duplicate-props": 2,
@@ -35,6 +34,8 @@
     "react/no-unknown-property": 2,
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 2,
+    "quotes": [2, "single", "avoid-escape"],
+    "no-compare-neg-zero": 0,
     "prefer-const": 2,
     "no-console": 0,
     "no-debugger": 2,
