@@ -9,9 +9,10 @@
     "populate": "node scripts/populate",
     "drop": "node scripts/drop",
     "test": "set -e; npm run lint; npm run mocha; npm run jest",
-    "jest": "node scripts/prepare-jest; jest --config=packages/config/jest.config.json",
+    "jest": "node scripts/prepare-jest; jest --config=jest.config.json",
     "mocha": "node scripts/mocha",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "foo": "jest --config=jest.config.json"
   },
   "repository": {
     "type": "git",
@@ -54,7 +55,7 @@
     "glob": "^7.1.1",
     "graphql": "^0.10.3",
     "helmet": "^3.4.1",
-    "material-ui": "^0.18.3",
+    "material-ui": "^0.18.4",
     "method-override": "^2.3.7",
     "mongoose": "^4.10.8",
     "node-sass": "^4.5.0",

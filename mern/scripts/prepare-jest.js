@@ -6,7 +6,7 @@ const makeWebpackConfig = require('config/webpack.config');
 const assets = require('config/assets');
 const logger = require('lib/winston');
 
-const jestConfigPath = path.resolve('./packages/config/jest.config.json');
+const jestConfigPath = path.resolve('./jest.config.json');
 const aliases = {};
 
 try {

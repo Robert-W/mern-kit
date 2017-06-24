@@ -7,9 +7,9 @@
   "moduleNameMapper": {
     "\\.(css|scss)$": "<rootDir>/packages/__mocks__/object.js",
     "\\.(jpe?g|png|gif|svg)$": "<rootDir>/packages/__mocks__/object.js",
-    "^common(.*)$": "/srv/src/packages/client/common$1",
-    "^home(.*)$": "/srv/src/packages/client/home$1",
-    "^login(.*)$": "/srv/src/packages/client/login$1"
+    "^common(.*)$": "/Users/robertwinterbottom/Projects/github/mern-kit/mern/packages/client/common$1",
+    "^home(.*)$": "/Users/robertwinterbottom/Projects/github/mern-kit/mern/packages/client/home$1",
+    "^login(.*)$": "/Users/robertwinterbottom/Projects/github/mern-kit/mern/packages/client/login$1"
   },
   "testMatch": [
     "<rootDir>/packages/client/*/tests/**/*.js"

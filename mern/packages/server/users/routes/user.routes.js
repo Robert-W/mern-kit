@@ -1,7 +1,4 @@
 const controller = require('server/users/controllers/user.controller');
-const schemas = require('server/users/schemas/user.schema');
-const graphqlHTTP = require('express-graphql');
-const utils = require('utils/route.utils');
 
 /**
 * @name exports
@@ -9,17 +6,6 @@ const utils = require('utils/route.utils');
 * @summary Routes for working with user models and schemas
 */
 module.exports = app => {
-  /**
-  * @name /user
-  * @summary GraphQL Endpoint for user information
-  * @see user.schema
-  * @memberof Router - ensureAuthenticated
-  */
-  app.use('/user', utils.ensureAuthenticated, graphqlHTTP({
-    graphiql: true,
-    schema: schemas.UserQuerySchema
-  }));
-
   /**
   * @name /auth/signout
   * @see user.controller

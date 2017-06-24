@@ -7,10 +7,13 @@
     "es6": true
   },
   "parser": "babel-eslint",
-  "ecmaFeatures": {
-    "templateStrings": true,
-    "modules": true,
-    "jsx": true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "templateStrings": true,
+      "jsx": true
+    }
   },
   "globals": {
     "app": true
