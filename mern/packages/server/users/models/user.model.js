@@ -47,7 +47,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     default: '',
     validate: [util.validators.isUnique('User', 'email'), 'That email address is already taken.'],
-    match: [/.+\@.+\..+/, 'Please provide a valid email address']
+    match: [/.+@.+\..+/, 'Please provide a valid email address']
   },
   salt: {
     type: String

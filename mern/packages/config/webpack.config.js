@@ -51,9 +51,7 @@ module.exports = (options = {}) => {
             fallback: 'style-loader',
             use: [
               { loader: 'css-loader', options: { minimize: true }},
-              { loader: 'postcss-loader', options: {
-                config: { path: path.resolve('./packages/config/postcss.config.js') }}
-              },
+              { loader: 'postcss-loader' },
               { loader: 'sass-loader' }
             ]
           })

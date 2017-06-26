@@ -1,4 +1,4 @@
-FROM node:7.7
+FROM node:8.1
 
 # Update everything that needs to be updated and install some extras
 RUN apt-get -y update
