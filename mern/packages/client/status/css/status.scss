@@ -1,0 +1,22 @@
+// Import base css
+@import '../../common/css/_base';
+
+.status__container {
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  position: absolute;
+  padding: 10px 20px;
+  background: white;
+  min-width: 300px;
+  width: 80%;
+  left: 50%;
+  top: 20%;
+}
+
+.status-title {
+
+}
+
+.status-message {
+
+}

@@ -243,10 +243,10 @@ There are a couple different places to add webpack configurations. The [`mern/pa
 Server side testing uses Mocha while client side testing uses Jest + Enzyme. Testing will use globs configured in the assets.js file to find all tests to execute.
 
 #### Mocha
-Mocha does not have many configurations, but since testing is done in Docker you can test your mongoose models, your apis, controllers, etc. The configuration for Mocha is in the [mocha test script](./mern/scripts/mocha.js) which test's every file found by the following pattern, `packages/server/*/tests/**/*.js`. To run your Mocha tests, see [Test](#test).
+Mocha does not have many configurations, but since testing is done in Docker you can test your mongoose models, your apis, controllers, etc. The configuration for Mocha is in the [mocha test script](./mern/scripts/mocha.js) which test's every file found by the following pattern, `packages/server/**/*.test.js`. To run your Mocha tests, see [Test](#test).
 
 #### Jest
-There is a [`jest.config.json`](./mern/packages/config/jest.config.json) file you can use to add some Jest configurations. Since you have the option to configure aliases for webpack, the `mern/scripts/prepare-jest.js` will generate a moduleNameMapper based on those aliases and will generate the testMatch with the pattern `<rootDir>/packages/client/*/tests/**/*.js` for you automatically when you run Jest. To run your Jest tests or update the snapshots, see [Test](#test).
+There is a [`jest.config.json`](./mern/jest.config.json) file you can use to add some Jest configurations. Since you have the option to configure aliases for webpack, the `mern/scripts/prepare-jest.js` will generate a moduleNameMapper based on those aliases and will generate the testMatch with the pattern `<rootDir>/packages/client/**/*.test.js` for you automatically when you run Jest. To run your Jest tests or update the snapshots, see [Test](#test).
 
 ### Other
 Mern-kit uses `.babelrc` and `.eslintrc` for those services.  Feel free to edit as you wish to add/remove features or change the linting rules.

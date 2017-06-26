@@ -1,4 +1,14 @@
 extends layout.pug
 
+block head
+  script(src=common)
+  style.
+    #{critical}
+
 block content
-  h1 Server error
+  div#mount
+    != markup
+  script(src=statusjs, async)
+  script.
+    window.statusTitle = "!{title}"
+    window.statusMessage = "!{message}"

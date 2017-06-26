@@ -1,5 +1,6 @@
 const webpackUtils = require('utils/webpack.utils');
 const methodOverride = require('method-override');
+const routeUtils = require('utils/route.utils');
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -145,12 +146,12 @@ const configureErrorRoutes = app => {
     if (!err) { return next(); }
     // Log the error and respond with 500
     logger.error('Unexpected server error', err.stack);
-    res.status(500).render('500', { status: 500, type: 'server-error', message: 'Unexpected server error' });
+    routeUtils.render500Error(res);
   });
   // Nothing has responded so this is assumed to be a 404 error
   app.use((req, res) => {
     logger.error('The requested resource was not found', req.path);
-    res.status(404).render('404', { status: 404, type: 'not-found', message: 'The requested resource was not found' });
+    routeUtils.render404Error(res);
   });
 };
 

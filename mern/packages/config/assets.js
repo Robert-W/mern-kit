@@ -11,5 +11,5 @@ module.exports = {
   mocha: 'packages/server/**/*.test.js',
   views: 'packages/server/**/views',
   build: 'packages/client/*/build.config.js',
-  jest: 'packages/client/*/tests/**/*.js'
+  jest: 'packages/client/**/*.test.js'
 };
