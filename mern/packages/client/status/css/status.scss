@@ -2,21 +2,51 @@
 @import '../../common/css/_base';
 
 .status__container {
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
-  position: absolute;
-  padding: 10px 20px;
-  background: white;
-  min-width: 300px;
-  width: 80%;
-  left: 50%;
-  top: 20%;
+  flex-direction: column;
+  display: flex;
 }
 
-.status-title {
+.status__title-container {
+  border-bottom: 1px solid #CCC;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 30px 0;
+  margin: 0 10px;
+  display: flex;
+}
 
+.status-code,
+.status-message {
+  margin: 0;
+}
+
+.status-code {
+  font-weight: 300;
+  font-size: 56px;
+}
+
+.status-code::after {
+  margin: 0 10px;
+  content: '|';
 }
 
 .status-message {
+  font-weight: 300;
+  font-size: 40px;
+}
 
+.status-details {
+  padding-top: 50px;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+@media (max-width: $mobileBreak) {
+  .status-code {
+    font-size: 36px;
+  }
+  .status-message {
+    font-size: 32px;
+  }
 }

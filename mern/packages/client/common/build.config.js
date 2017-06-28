@@ -6,7 +6,8 @@
 module.exports = {
   webpack: {
     alias: {
-      common: 'packages/client/common'
+      common: 'packages/client/common',
+      resources: 'packages/resources'
     }
   }
 };
