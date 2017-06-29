@@ -3,11 +3,19 @@ const { renderToString } = require('react-dom/server');
 const { compiledAssets } = require('config/config');
 const { createElement } = require('react');
 
-const getComponentMarkup = name => {
-  // Get the markup from our component
-  return compiledAssets.js[name]
-    ? renderToString(createElement(compiledAssets.js[name].default))
+const renderStatusPage = (res, code) => {
+  const text = ERROR_MESSAGES[code];
+  const markup = compiledAssets.js['status-component']
+    ? renderToString(createElement(compiledAssets.js['status-component'].default))
     : '';
+
+  res.status(code).render(code, {
+    title: text.title,
+    critical: compiledAssets.css['status/css/status.scss'],
+    common: compiledAssets.js.common,
+    statusjs: compiledAssets.js.status,
+    markup: markup
+  });
 };
 
 /**
@@ -16,15 +24,7 @@ const getComponentMarkup = name => {
 * @param {Response} res - Express response object
 */
 function render403Error (res) {
-  const code = '403';
-  const text = ERROR_MESSAGES[code];
-  res.status(code).render(code, {
-    title: text.title,
-    critical: compiledAssets.css['status/css/status.scss'],
-    common: compiledAssets.js.common,
-    statusjs: compiledAssets.js.status,
-    markup: getComponentMarkup('status-component')
-  });
+  renderStatusPage(res, '403');
 }
 
 /**
@@ -33,15 +33,7 @@ function render403Error (res) {
 * @param {Response} res - Express response object
 */
 function render404Error (res) {
-  const code = '404';
-  const text = ERROR_MESSAGES[code];
-  res.status(code).render(code, {
-    title: text.title,
-    critical: compiledAssets.css['status/css/status.scss'],
-    common: compiledAssets.js.common,
-    statusjs: compiledAssets.js.status,
-    markup: getComponentMarkup('status-component')
-  });
+  renderStatusPage(res, '404');
 }
 
 /**
@@ -50,15 +42,7 @@ function render404Error (res) {
 * @param {Response} res - Express response object
 */
 function render500Error (res) {
-  const code = '500';
-  const text = ERROR_MESSAGES[code];
-  res.status(code).render(code, {
-    title: text.title,
-    critical: compiledAssets.css['status/css/status.scss'],
-    common: compiledAssets.js.common,
-    statusjs: compiledAssets.js.status,
-    markup: getComponentMarkup('status-component')
-  });
+  renderStatusPage(res, '500');
 }
 
 /**
